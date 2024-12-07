@@ -17,6 +17,6 @@ export class TaskListComponent implements OnInit {
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
-      this.tasks = this.taskService.getAllTasks();
+    this.tasks = this.taskService.getAllTasks();
   }
 }

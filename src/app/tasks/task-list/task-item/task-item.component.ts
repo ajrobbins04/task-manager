@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Task } from '../../task.model';
 import { TaskService } from '../../task.service';
 
@@ -11,10 +11,17 @@ import { TaskService } from '../../task.service';
 export class TaskItemComponent implements OnInit {
 
   @Input() task: Task;
+  @Output() taskSelected = new EventEmitter<void>();
+
+  // toggle task item detail visibility
+  showDetails: boolean = false;
 
   constructor(private taskService: TaskService) {}
 
-  ngOnInit(): void {
-      
+  ngOnInit(): void {}
+
+  toggleDetails() {
+    // reverse current state w/each click
+    this.showDetails = !this.showDetails;
   }
 }
