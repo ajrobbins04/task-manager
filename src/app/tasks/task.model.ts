@@ -5,6 +5,6 @@ export class Task {
      public description: string,
      public dueDate: Date | null,
      public priority: 'Low' | 'Medium' | 'High',
-     public status: 'Pending' | 'In Progress' | 'Completed'
+     public status: 'Incomplete' | 'Completed'
     ) {}
 }
