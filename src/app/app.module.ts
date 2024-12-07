@@ -8,6 +8,7 @@ import { TaskDetailComponent } from './tasks/task-detail/task-detail.component';
 import { TaskEditComponent } from './tasks/task-edit/task-edit.component';
 import { TaskListComponent } from './tasks/task-list/task-list.component';
 import { TaskItemComponent } from './tasks/task-list/task-item/task-item.component';
+import { TaskService } from './tasks/task.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { TaskItemComponent } from './tasks/task-list/task-item/task-item.compone
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
