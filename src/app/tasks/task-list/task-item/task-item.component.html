@@ -1,6 +1,10 @@
 <li class="list-group-item">
     <a 
     href="" 
-    class="task-title"
     (click)="toggleDetails()">{{ task.title }}</a>
+
+    <!-- task details not initially visible w/o toggling -->
+    <div *ngIf="showDetails">
+
+    </div>
 </li>

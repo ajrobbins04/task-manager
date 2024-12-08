@@ -13,7 +13,7 @@ export class TaskItemComponent implements OnInit {
   @Input() task: Task;
   @Output() taskSelected = new EventEmitter<void>();
 
-  // toggle task item detail visibility
+  // toggle task item's details for visibility
   showDetails: boolean = false;
 
   constructor(private taskService: TaskService) {}
