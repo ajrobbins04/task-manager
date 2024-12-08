@@ -16,11 +16,6 @@ export class TaskService {
         return this.tasks.slice();
     }
 
-    getTasksByPriority(priority: 'Low' | 'Medium' | 'High'): Task[] {
-        return this.tasks
-            .filter(task => task.priority === priority)
-            .slice();
-    }
 
     getTask(id: string) {
         for (let task of this.tasks) {

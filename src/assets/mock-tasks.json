@@ -1,0 +1,162 @@
+[
+  {
+    "id": "1",
+    "title": "Complete Statistics Project",
+    "details": "This project covers the entire statistical process.",
+    "selectedDate": "2024-12-04T00:00:00.000Z",
+    "startTime": "09:00",
+    "endTime": "10:00",
+    "deadlineDate": "2024-12-07T00:00:00.000Z",
+    "status": "Incomplete"
+  },
+  {
+    "id": "2",
+    "title": "Prepare Presentation Slides",
+    "details": "There should be a minimum of 8 slides",
+    "selectedDate": "2024-12-04T00:00:00.000Z",
+    "startTime": "Anytime",
+    "endTime": null,
+    "deadlineDate": "2024-12-09T00:00:00.000Z",
+    "status": "Incomplete"
+  },
+  {
+    "id": "3",
+    "title": "Do Laundry",
+    "details": "Remember to empty out the pockets first!",
+    "selectedDate": "2024-12-05T00:00:00.000Z",
+    "startTime": "10:00",
+    "endTime": "11:00",
+    "deadlineDate": null,
+    "status": "Incomplete"
+  },
+  {
+    "id": "4",
+    "title": "Work on Angular Project",
+    "details": "Ensure all CRUD operations work as expected.",
+    "selectedDate": "2024-12-07T00:00:00.000Z",
+    "startTime": "13:00",
+    "endTime": null,
+    "deadlineDate": "2024-12-09T00:00:00.000Z",
+    "status": "Incomplete"
+  },
+  {
+    "id": "5",
+    "title": "Schedule Team Check-In",
+    "details": "Coordinate with team members to set up a video call.",
+    "selectedDate": "2024-12-09T00:00:00.000Z",
+    "startTime": "Anytime",
+    "endTime": null,
+    "deadlineDate": "2024-12-11T00:00:00.000Z",
+    "status": "Incomplete"
+  },
+  {
+    "id": "6",
+    "title": "Review Quarterly Budget",
+    "details": "Analyze spending trends and propose adjustments.",
+    "selectedDate": "2024-12-09T00:00:00.000Z",
+    "startTime": "11:00",
+    "endTime": "11:30",
+    "deadlineDate": "2024-12-12T00:00:00.000Z",
+    "status": "Incomplete"
+  },
+  {
+    "id": "7",
+    "title": "Draft Email Campaign",
+    "details": "Focus on engaging subject lines and strong CTAs.",
+    "selectedDate": "2024-12-10T00:00:00.000Z",
+    "startTime": "08:30",
+    "endTime": null,
+    "deadlineDate": "2024-12-15T00:00:00.000Z",
+    "status": "Incomplete"
+  },
+  {
+    "id": "8",
+    "title": "Plan Holiday Party",
+    "details": "Include venue booking, catering, and gift exchange plans.",
+    "selectedDate": "2024-12-11T00:00:00.000Z",
+    "startTime": "Anytime",
+    "endTime": null,
+    "deadlineDate": null,
+    "status": "Incomplete"
+  },
+  {
+    "id": "9",
+    "title": "Run to the Store",
+    "details": "Use grocery list hanging on the fridge.",
+    "selectedDate": "2024-12-11T00:00:00.000Z",
+    "startTime": "14:00",
+    "endTime": "15:00",
+    "deadlineDate": null,
+    "status": "Incomplete"
+  },
+  {
+    "id": "10",
+    "title": "Brainstorm Ideas for Q1 Goals",
+    "details": "Focus on customer acquisition and retention strategies.",
+    "selectedDate": "2024-12-13T00:00:00.000Z",
+    "startTime": "16:00",
+    "endTime": null,
+    "deadlineDate": null,
+    "status": "Incomplete"
+  },
+  {
+    "id": "11",
+    "title": "Submit Final Budget Report",
+    "details": null,
+    "selectedDate": "2024-12-14T00:00:00.000Z",
+    "startTime": "09:00",
+    "endTime": "09:15",
+    "deadlineDate": null,
+    "status": "Incomplete"
+  },
+  {
+    "id": "12",
+    "title": "Finalize Angular Project",
+    "details": "Ensure all components are responsive and accessible.",
+    "selectedDate": "2024-12-14T00:00:00.000Z",
+    "startTime": "10:30",
+    "endTime": "12:45",
+    "deadlineDate": "2024-12-16T00:00:00.000Z",
+    "status": "Incomplete"
+  },
+  {
+    "id": "13",
+    "title": "Call Mary",
+    "details": "Today is her birthday!",
+    "selectedDate": "2024-12-15T00:00:00.000Z",
+    "startTime": "Anytime",
+    "endTime": null,
+    "deadlineDate": null,
+    "status": "Incomplete"
+  },
+  {
+    "id": "14",
+    "title": "Shop for Christmas Gifts",
+    "details": "Still looking for gifts for Kylee, Rebecca, and the family white elephant exchange.",
+    "selectedDate": "2024-12-15T00:00:00.000Z",
+    "startTime": "18:00",
+    "endTime": "20:00",
+    "deadlineDate": null,
+    "status": "Incomplete"
+  },
+  {
+    "id": "15",
+    "title": "Pay Utility Bills",
+    "details": null,
+    "selectedDate": "2024-12-15T00:00:00.000Z",
+    "startTime": "09:00",
+    "endTime": "09:30",
+    "deadlineDate": null,
+    "status": "Incomplete"
+  },
+  {
+    "id": "16",
+    "title": "Organize Workspace",
+    "details": "Tidy up desk and declutter papers.",
+    "selectedDate": "2024-12-15T00:00:00.000Z",
+    "startTime": "16:00",
+    "endTime": "17:00",
+    "deadlineDate": null,
+    "status": "Incomplete"
+  }
+]
