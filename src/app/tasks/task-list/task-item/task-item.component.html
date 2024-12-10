@@ -10,11 +10,11 @@
         </ng-template>
     </div>
     <span
-    style="cursor: pointer;"
     class="glyphicon"
     [ngClass]="{
         'glyphicon-check': task.status === 'Completed',
-        'glyphicon-unchecked': task.status !== 'Completed'
+        'glyphicon-unchecked': task.status !== 'Completed',
+        'just-clicked': justClicked
     }"
     (click)="toggleTaskStatus()"
     [title]="task.status === 'Completed' ? 'Mark as Incomplete' : 'Mark as Complete'"

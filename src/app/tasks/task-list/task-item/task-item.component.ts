@@ -15,6 +15,7 @@ export class TaskItemComponent implements OnInit {
 
   // toggle task item's details for visibility
   showOptions: boolean = false;
+  justClicked: boolean = false;
 
   constructor(private taskService: TaskService) {}
 
@@ -23,5 +24,10 @@ export class TaskItemComponent implements OnInit {
   toggleTaskStatus() {
     this.task.status = this.task.status === 'Completed' ? 'Incomplete' : 'Completed';
     this.taskStatusChanged.emit(this.task);
+
+    this.justClicked = true;
+    setTimeout(() => {
+      this.justClicked = false;
+    }, 1000);
   }
 }

@@ -1,0 +1,16 @@
+.glyphicon {
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.glyphicon-check:hover,
+.glyphicon-unchecked.just-clicked:hover {
+    color: #e74c3c;
+}
+
+.glyphicon-check,
+.glyphicon-unchecked:hover,
+.glyphicon-check.just-clicked:hover {
+    color: #4caf50;
+}
