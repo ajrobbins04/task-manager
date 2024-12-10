@@ -3,7 +3,7 @@
             <div class="row">
                <div class="col-xs-12">
                 <task-manager-task-item
-                *ngFor="let taskEl of tasks"
+                *ngFor="let taskEl of chosenDateTasks"
                 [task]="taskEl"
                 (taskStatusChange)="onTaskStatusChange($event)"
                 ></task-manager-task-item>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TaskService } from '../task.service';
 import { Task } from '../task.model';
 
@@ -12,7 +12,8 @@ import { Task } from '../task.model';
 })
 
 export class TaskListComponent implements OnInit {
-  tasks: Task[] = [];
+  @Input() chosenDateTasks: Task[];
+
 
   constructor(private taskService: TaskService) {}
 
@@ -21,6 +22,6 @@ export class TaskListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tasks = this.taskService.getAllTasks();
+
   }
 }
