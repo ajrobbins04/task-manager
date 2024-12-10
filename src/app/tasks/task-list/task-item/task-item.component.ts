@@ -11,7 +11,7 @@ import { TaskService } from '../../task.service';
 export class TaskItemComponent implements OnInit {
 
   @Input() task: Task;
-  @Output() taskStatusChanged = new EventEmitter<Task>();
+  @Output() taskStatusChange = new EventEmitter<Task>();
 
   // toggle task item's details for visibility
   showOptions: boolean = false;
@@ -21,11 +21,15 @@ export class TaskItemComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  // so a completed task can be checked, and unchecked later if necessary
   toggleTaskStatus() {
     this.task.status = this.task.status === 'Completed' ? 'Incomplete' : 'Completed';
-    this.taskStatusChanged.emit(this.task);
+    this.taskStatusChange.emit(this.task);
 
     this.justClicked = true;
+
+    // so instances where a box is checked don't immediately
+    // turn to red when the cursor hovers over it afterwards
     setTimeout(() => {
       this.justClicked = false;
     }, 1000);

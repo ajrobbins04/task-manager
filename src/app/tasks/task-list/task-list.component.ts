@@ -16,6 +16,10 @@ export class TaskListComponent implements OnInit {
 
   constructor(private taskService: TaskService) {}
 
+  onTaskStatusChange(updatedTask: Task) {
+    console.log('change noted!')
+  }
+
   ngOnInit(): void {
     this.tasks = this.taskService.getAllTasks();
   }
