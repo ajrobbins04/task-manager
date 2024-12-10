@@ -1,7 +1,13 @@
 <li class="list-group-item">
+    <!--Displays when full time range provided-->
+    <p *ngIf="task.startTime && task.endTime; else noEndTime">
+        {{ task.startTime | timeFormat }} - {{ task.endTime | timeFormat }}
+    </p>
+    <!--Only start time displays if it's provided, or 'Anytime'-->
+    <ng-template #noEndTime>
+        <p>{{ task.startTime ? (task.startTime | timeFormat) : 'Anytime' }}</p>
+    </ng-template>
+      
     <p>{{ task.title }}</p>
-    <!-- task details not initially visible w/o toggling -->
-    <div *ngIf="showDetails">
-
-    </div>
+    <p *ngIf="task.details">{{ task.details }}</p>
 </li>

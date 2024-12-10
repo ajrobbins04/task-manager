@@ -14,14 +14,14 @@ export class TaskItemComponent implements OnInit {
   @Output() taskSelected = new EventEmitter<void>();
 
   // toggle task item's details for visibility
-  showDetails: boolean = false;
+  showOptions: boolean = false;
 
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {}
 
-  toggleDetails() {
+  toggleOptions() {
     // reverse current state w/each click
-    this.showDetails = !this.showDetails;
+    this.showOptions = !this.showOptions;
   }
 }

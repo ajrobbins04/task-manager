@@ -16,7 +16,7 @@ export const MOCKTASKS: Task[] = [
     title: 'Prepare Presentation Slides',
     details: 'There should be a minimum of 8 slides',
     selectedDate: new Date('2024-12-04'),
-    startTime: 'Anytime',
+    startTime: null,
     endTime: null,
     deadlineDate: new Date('2024-12-09'),
     status: 'Incomplete'
@@ -46,7 +46,7 @@ export const MOCKTASKS: Task[] = [
     title: 'Schedule Team Check-In',
     details: 'Coordinate with team members to set up a video call.',
     selectedDate: new Date('2024-12-09'),
-    startTime: 'Anytime',
+    startTime: null,
     endTime: null,
     deadlineDate: new Date('2024-12-11'),
     status: 'Incomplete'
@@ -76,7 +76,7 @@ export const MOCKTASKS: Task[] = [
     title: 'Plan Holiday Party',
     details: 'Include venue booking, catering, and gift exchange plans.',
     selectedDate: new Date('2024-12-11'),
-    startTime: 'Anytime',
+    startTime: null,
     endTime: null,
     deadlineDate: null,
     status: 'Incomplete'
@@ -126,7 +126,7 @@ export const MOCKTASKS: Task[] = [
     title: 'Call Mary',
     details: 'Today is her birthday!',
     selectedDate: new Date('2024-12-15'),
-    startTime: 'Anytime',
+    startTime: null,
     endTime: null,
     deadlineDate: null,
     status: 'Incomplete'

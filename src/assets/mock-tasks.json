@@ -15,7 +15,7 @@
         "id": "2",
         "title": "Prepare Presentation Slides",
         "details": "There should be a minimum of 8 slides",
-        "startTime": "Anytime",
+        "startTime": null,
         "endTime": null,
         "deadlineDate": "2024-12-09",
         "status": "Incomplete"
@@ -57,7 +57,7 @@
         "id": "5",
         "title": "Schedule Team Check-In",
         "details": "Coordinate with team members to set up a video call.",
-        "startTime": "Anytime",
+        "startTime": null,
         "endTime": null,
         "deadlineDate": "2024-12-11",
         "status": "Incomplete"
@@ -94,7 +94,7 @@
         "id": "8",
         "title": "Plan Holiday Party",
         "details": "Include venue booking, catering, and gift exchange plans.",
-        "startTime": "Anytime",
+        "startTime": null,
         "endTime": null,
         "deadlineDate": null,
         "status": "Incomplete"
@@ -154,7 +154,7 @@
         "id": "13",
         "title": "Call Mary",
         "details": "Today is her birthday!",
-        "startTime": "Anytime",
+        "startTime": null,
         "endTime": null,
         "deadlineDate": null,
         "status": "Incomplete"
