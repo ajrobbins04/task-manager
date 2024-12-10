@@ -11,7 +11,7 @@ import { TaskService } from '../../task.service';
 export class TaskItemComponent implements OnInit {
 
   @Input() task: Task;
-  @Output() taskSelected = new EventEmitter<void>();
+  @Output() taskStatusChanged = new EventEmitter<Task>();
 
   // toggle task item's details for visibility
   showOptions: boolean = false;
@@ -20,8 +20,8 @@ export class TaskItemComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  toggleOptions() {
-    // reverse current state w/each click
-    this.showOptions = !this.showOptions;
+  toggleTaskStatus() {
+    this.task.status = this.task.status === 'Completed' ? 'Incomplete' : 'Completed';
+    this.taskStatusChanged.emit(this.task);
   }
 }

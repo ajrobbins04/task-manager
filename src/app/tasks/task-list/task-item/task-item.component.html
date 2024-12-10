@@ -1,13 +1,25 @@
-<li class="list-group-item">
-    <!--Displays when full time range provided-->
-    <p *ngIf="task.startTime && task.endTime; else noEndTime">
-        {{ task.startTime | timeFormat }} - {{ task.endTime | timeFormat }}
-    </p>
-    <!--Only start time displays if it's provided, or 'Anytime'-->
-    <ng-template #noEndTime>
-        <p>{{ task.startTime ? (task.startTime | timeFormat) : 'Anytime' }}</p>
-    </ng-template>
-      
-    <p>{{ task.title }}</p>
+<li class="list-group-item" [ngClass]="{'task-complete': task.status === 'Completed'}">
+    <div>
+        <!--Displays when full time range provided-->
+        <p *ngIf="task.startTime && task.endTime; else noEndTime">
+            {{ task.startTime | timeFormat }} - {{ task.endTime | timeFormat }}
+        </p>
+        <!--Only start time displays if it's provided, or 'Anytime'-->
+        <ng-template #noEndTime>
+            <p>{{ task.startTime ? (task.startTime | timeFormat) : 'Anytime' }}</p>
+        </ng-template>
+    </div>
+    <span
+    style="cursor: pointer;"
+    class="glyphicon"
+    [ngClass]="{
+        'glyphicon-check': task.status === 'Completed',
+        'glyphicon-unchecked': task.status !== 'Completed'
+    }"
+    (click)="toggleTaskStatus()"
+    [title]="task.status === 'Completed' ? 'Mark as Incomplete' : 'Mark as Complete'"
+  ></span>
+
+    <h3>{{ task.title }}</h3>
     <p *ngIf="task.details">{{ task.details }}</p>
 </li>
