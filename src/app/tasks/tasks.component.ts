@@ -11,8 +11,8 @@ export class TasksComponent implements OnInit {
 
   
   chosenDate: Date = new Date('2024-12-07');
-  tasks: Task[] = [];
-  chosenDateTasks: Task[] = [];
+  tasks: Task[];
+  chosenDateTasks: Task[];
 
 
   constructor(private taskService: TaskService) {}

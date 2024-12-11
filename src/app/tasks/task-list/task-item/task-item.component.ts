@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Router } from '@angular/router';
 import { Task } from '../../task.model';
 import { TaskService } from '../../task.service';
 
@@ -18,7 +19,9 @@ export class TaskItemComponent implements OnInit {
   showOptions: boolean = false;
   justClicked: boolean = false;
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService,
+              private router: Router,
+  ) {}
 
   ngOnInit(): void {}
 
@@ -41,6 +44,8 @@ export class TaskItemComponent implements OnInit {
   }
 
   onDelete() {
-    this.taskService.deleteTask(this.task.id);
+    console.log('Delete!')
+    this.taskService.deleteTask(this.task);
+    this.router.navigate(['/tasks']); 
   }
 }

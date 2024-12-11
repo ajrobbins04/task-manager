@@ -9,18 +9,17 @@ import { BehaviorSubject } from 'rxjs';
 
 export class TaskService {
     private tasks: Task[] = [];
+    private chosenDateTasks: Task[] = [];
     private maxTaskId: number;
-
-    // using BehaviorSubject so initial tasks value doesn't
-    // need to be emitted manually
-    tasksChanged = new BehaviorSubject<Task[]>(this.tasks);
-    // so other components cannot modify tasks
-    tasks$ = this.tasksChanged.asObservable();
-
+    private taskChanged: BehaviorSubject<Task[]>;
 
     constructor() {
         this.tasks = MOCKTASKS;
         this.maxTaskId = this.getMaxId();
+   
+        // using BehaviorSubject so initial tasks value doesn't
+        // need to be emitted manually
+        this.taskChanged = new BehaviorSubject<Task[]>(this.tasks);
     }
 
     getMaxId(): number {
@@ -51,10 +50,25 @@ export class TaskService {
 
     addTask(task: Task) {
         this.tasks.push(task);
-        this.tasksChanged.next(this.getAllTasks());
+        this.taskChanged.next(this.getAllTasks());
     }
 
-    deleteTask(taskId: string) {
-      
+    deleteTask(task: Task) {
+        if (!task) {
+            console.log('no task...')
+            return;
+        }
+        const pos = this.tasks.indexOf(task);
+        if (pos < 0) {
+            console.log('no index...')
+            return;
+        }
+        console.log(task);
+        this.tasks.splice(pos, 1);
+        const tasksListClone = this.tasks.slice();
+        this.tasks = tasksListClone;
+        console.log(tasksListClone);
+        this.taskChanged.next(tasksListClone);
+    
     }
 }
