@@ -11,7 +11,8 @@ import { TaskService } from '../../task.service';
 export class TaskItemComponent implements OnInit {
 
   @Input() task: Task;
-  @Output() taskStatusChange = new EventEmitter<Task>();
+  @Output() taskStatusChange = new EventEmitter<string>();
+  @Output() editTask = new EventEmitter<string>();
 
   // toggle task item's details for visibility
   showOptions: boolean = false;
@@ -24,7 +25,7 @@ export class TaskItemComponent implements OnInit {
   // so a completed task can be checked, and unchecked later if necessary
   toggleTaskStatus() {
     this.task.status = this.task.status === 'Completed' ? 'Incomplete' : 'Completed';
-    this.taskStatusChange.emit(this.task);
+    this.taskStatusChange.emit(this.task.id);
 
     this.justClicked = true;
 
@@ -33,5 +34,13 @@ export class TaskItemComponent implements OnInit {
     setTimeout(() => {
       this.justClicked = false;
     }, 1000);
+  }
+
+  onEdit() {
+    this.editTask.emit(this.task.id);
+  }
+
+  onDelete() {
+    this.taskService.deleteTask(this.task.id);
   }
 }

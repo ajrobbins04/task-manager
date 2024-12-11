@@ -1,5 +1,8 @@
 <li class="list-group-item" [ngClass]="{'task-complete': task.status === 'Completed'}">
     <div>
+        <a class="btn btn-danger pull-right" (click)="onDelete()">Delete</a>
+        <a class="btn btn-primary pull-right" routerLink="edit">Edit</a>
+        
         <!--Displays when full time range provided-->
         <p *ngIf="task.startTime && task.endTime; else noEndTime">
             {{ task.startTime | timeFormat }} - {{ task.endTime | timeFormat }}
@@ -23,3 +26,4 @@
     <h3>{{ task.title }}</h3>
     <p *ngIf="task.details">{{ task.details }}</p>
 </li>
+
