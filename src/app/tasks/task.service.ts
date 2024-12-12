@@ -10,9 +10,12 @@ import { BehaviorSubject } from 'rxjs';
 export class TaskService {
     private tasks: Task[] = [];
     private maxTaskId: number;
+
+    // tracks tasks whose status icons (complete/incomplete) have been clicked recently
+    private justClickedTasks: Map<string, boolean> = new Map();
     private chosenDateSubject = new BehaviorSubject<Date>(new Date('2024-12-07')); 
     private filteredTasksSubject = new BehaviorSubject<Task[]>([]);
-
+    
     chosenDate$ = this.chosenDateSubject.asObservable();
     filteredTasks$ = this.filteredTasksSubject.asObservable();
 
@@ -47,6 +50,21 @@ export class TaskService {
         console.log(filteredTasks);
         // emit filtered tasks to subscribers
         this.filteredTasksSubject.next(filteredTasks);
+    }
+
+    // will delay a newly completed task from turning red on hover 
+    // immediately after it's been clicked (and vice-versa)
+    markAsJustClicked(taskId: string): void {
+        this.justClickedTasks.set(taskId, true);
+      
+        // Clear the just-clicked state after a delay
+        setTimeout(() => {
+          this.justClickedTasks.delete(taskId);
+        }, 1500);
+    }
+
+    isJustClicked(taskId: string): boolean {
+        return this.justClickedTasks.get(taskId) || false;
     }
 
     getAllTasks() {

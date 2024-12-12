@@ -27,15 +27,15 @@ export class TaskItemComponent implements OnInit {
   // so a completed task can be checked, and unchecked later if necessary
   toggleTaskStatus() {
     this.task.status = this.task.status === 'Completed' ? 'Incomplete' : 'Completed';
+  
+    this.taskService.markAsJustClicked(this.task.id);
     this.taskService.updateTaskStatus(this.task.id, this.task.status);
+  }
 
-    this.justClicked = true;
-
-    // so instances where a box is checked don't immediately
-    // turn to red when the cursor hovers over it afterwards
-    setTimeout(() => {
-      this.justClicked = false;
-    }, 1000);
+  // so instances where a box is checked don't immediately
+  // turn to red when the cursor hovers over it afterwards
+  isJustClicked(): boolean {
+    return this.taskService.isJustClicked(this.task.id); 
   }
 
   // notify parent that edit action was triggered

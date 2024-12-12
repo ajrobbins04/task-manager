@@ -17,7 +17,7 @@
     [ngClass]="{
         'glyphicon-check': task.status === 'Completed',
         'glyphicon-unchecked': task.status !== 'Completed',
-        'just-clicked': justClicked 
+        'just-clicked': isJustClicked()
     }"
     (click)="toggleTaskStatus()"
     [title]="task.status === 'Completed' ? 'Mark as Incomplete' : 'Mark as Complete'"
