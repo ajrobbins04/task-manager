@@ -9,17 +9,17 @@ import { BehaviorSubject } from 'rxjs';
 
 export class TaskService {
     private tasks: Task[] = [];
-    private chosenDateTasks: Task[] = [];
     private maxTaskId: number;
-    private taskChanged: BehaviorSubject<Task[]>;
+    private chosenDateSubject = new BehaviorSubject<Date>(new Date('2024-12-07')); 
+    private filteredTasksSubject = new BehaviorSubject<Task[]>([]);
+
+    chosenDate$ = this.chosenDateSubject.asObservable();
+    filteredTasks$ = this.filteredTasksSubject.asObservable();
 
     constructor() {
         this.tasks = MOCKTASKS;
         this.maxTaskId = this.getMaxId();
-   
-        // using BehaviorSubject so initial tasks value doesn't
-        // need to be emitted manually
-        this.taskChanged = new BehaviorSubject<Task[]>(this.tasks);
+        this.filterTasksByDate(this.chosenDateSubject.value);
     }
 
     getMaxId(): number {
@@ -34,10 +34,24 @@ export class TaskService {
         return maxId;
     }
 
+    setChosenDate(newDate: Date) {
+        this.chosenDateSubject.next(newDate);
+        this.filterTasksByDate(newDate);
+    }
+
+    // filter tasks based on the selected date
+    filterTasksByDate(date: Date) {
+        const filteredTasks = this.tasks.filter(
+          task => task.selectedDate?.toDateString() === date.toDateString()
+        );
+        console.log(filteredTasks);
+        // emit filtered tasks to subscribers
+        this.filteredTasksSubject.next(filteredTasks);
+    }
+
     getAllTasks() {
         return this.tasks.slice();
     }
-
 
     getTask(id: string) {
         for (let task of this.tasks) {
@@ -50,7 +64,7 @@ export class TaskService {
 
     addTask(task: Task) {
         this.tasks.push(task);
-        this.taskChanged.next(this.getAllTasks());
+        this.filterTasksByDate(this.chosenDateSubject.value);
     }
 
     deleteTask(task: Task) {
@@ -65,10 +79,19 @@ export class TaskService {
         }
         console.log(task);
         this.tasks.splice(pos, 1);
-        const tasksListClone = this.tasks.slice();
-        this.tasks = tasksListClone;
-        console.log(tasksListClone);
-        this.taskChanged.next(tasksListClone);
+        this.tasks = this.tasks.slice();
+      
+        this.filterTasksByDate(this.chosenDateSubject.value);
     
     }
+
+    updateTaskStatus(taskId: string, newStatus: 'Completed' | 'Incomplete'): void {
+        // Update the task's status and emit the updated tasks
+        this.tasks = this.tasks.map(task =>
+          task.id === taskId ? { ...task, status: newStatus } : task
+        );
+
+        this.filterTasksByDate(this.chosenDateSubject.value);
+      }
+      
 }

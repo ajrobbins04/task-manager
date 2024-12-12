@@ -16,9 +16,10 @@ export class TaskListComponent implements OnInit {
 
 
   constructor(private taskService: TaskService) {}
+  
+  onEditTask(taskId: string): void {
+    console.log('Edit task triggered:', taskId);
 
-  onTaskStatusChange(updatedTask: Task) {
-    console.log('change noted!')
   }
 
   ngOnInit(): void {

@@ -2,14 +2,11 @@
     <div class="col-sm-8 col-sm-offset-4 col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <task-manager-task-nav
-                    [chosenDate]="chosenDate"
-                    (dateChanged)="onDateChanged($event)"
-                ></task-manager-task-nav>
+                <task-manager-task-nav></task-manager-task-nav>
             </div>
             <div class="panel-body">
                 <task-manager-task-list
-                    [chosenDateTasks]="chosenDateTasks"
+                    [chosenDateTasks]="filteredTasks$ | async"
                 ></task-manager-task-list>
                 <task-manager-task-edit></task-manager-task-edit>
             </div>

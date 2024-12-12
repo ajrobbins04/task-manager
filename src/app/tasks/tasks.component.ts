@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from './task.model';
 import { TaskService } from './task.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'task-manager-tasks',
@@ -9,30 +10,13 @@ import { TaskService } from './task.service';
 })
 export class TasksComponent implements OnInit {
 
-  
-  chosenDate: Date = new Date('2024-12-07');
-  tasks: Task[];
-  chosenDateTasks: Task[];
-
-
+  filteredTasks$: Observable<Task[]>;
+  currentDate$: Observable<Date>;
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
-      this.tasks = this.taskService.getAllTasks();
-      this.filterTasksByDate();
-  }
-
-  filterTasksByDate() {
-    this.chosenDateTasks = this.tasks.filter(
-      task => task.selectedDate?.toDateString() === this.chosenDate.toDateString()
-    );
-
-    console.log(this.chosenDateTasks);
-  }
-
-  onDateChanged(newDate: Date) {
-    this.chosenDate = newDate;
-    this.filterTasksByDate();
+    this.filteredTasks$ = this.taskService.filteredTasks$;
+    this.currentDate$ = this.taskService.chosenDate$;
   }
 
 }

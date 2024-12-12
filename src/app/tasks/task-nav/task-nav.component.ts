@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { TaskService } from '../task.service';
 
 @Component({
   selector: 'task-manager-task-nav',
@@ -7,16 +8,24 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 
 export class TaskNavComponent {
-  @Input() chosenDate: Date; 
-  @Output() dateChanged = new EventEmitter<Date>();
+  chosenDate: Date; 
+
+  constructor(private taskService: TaskService) {}
+
+  ngOnInit() {
+    this.taskService.chosenDate$.subscribe((date) => {
+      this.chosenDate = date; 
+    });
+  }
 
   goToPreviousDay() {
-    this.chosenDate = new Date(this.chosenDate.getTime() - 24 * 60 * 60 * 1000); // Subtract 1 day
-    this.dateChanged.emit(this.chosenDate);
+    const newDate = new Date(this.chosenDate.getTime() - 24 * 60 * 60 * 1000); // Subtract 1 day
+    this.taskService.setChosenDate(newDate);
+
   }
 
   goToNextDay() {
-    this.chosenDate = new Date(this.chosenDate.getTime() + 24 * 60 * 60 * 1000); // Add 1 day
-    this.dateChanged.emit(this.chosenDate);
+    const newDate = new Date(this.chosenDate.getTime() + 24 * 60 * 60 * 1000); // Add 1 day
+    this.taskService.setChosenDate(newDate);
   }
 }
