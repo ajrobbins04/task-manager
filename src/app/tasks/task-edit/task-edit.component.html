@@ -1,6 +1,21 @@
-<form id="contact-edit" (ngSubmit)="onSubmit(f)" #f="ngForm">
+<div class="panel panel-default">
+    <div class="panel-heading">Edit Task</div>
+    <div class="panel-body">
+<form id="task-edit" (ngSubmit)="onSubmit(f)" #f="ngForm">
     <div class="row">
         <div class="col-sm-12 form-group">
-            </div>
+            <label for="title">Task:</label>
+            <!--ngModel applied here & url for two-way data binding-->
+            <input
+              type="text"
+              id="title"
+              name="title"
+              class="form-control"
+              required
+              size="120"
+              max="120">
+        </div>
     </div>
 </form>
+    </div>
+</div>
