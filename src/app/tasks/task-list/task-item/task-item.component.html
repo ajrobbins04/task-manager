@@ -29,7 +29,7 @@
 <!-- display TaskEditComponent only when in edit mode -->
 <div *ngIf="isEditing">
     <task-manager-task-edit
-        (save)="addTask($event)"
-        (cancel)="stopEditing()">
+    (taskEditSaved)="onSave()"
+    (taskEditCanceled)="stopEditing()">
     </task-manager-task-edit>
 </div>

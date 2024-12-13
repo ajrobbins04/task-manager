@@ -32,7 +32,8 @@ export class TaskItemComponent implements OnInit {
   }
 
   saveChanges(updatedTask: Task): void {
-    this.taskService.updateTask(updatedTask) // save changes via the service
+    
+    //this.taskService.updateTask(updatedTask) // save changes via the service
     this.stopEditing(); // exit edit mode after saving
   }
 
@@ -53,4 +54,5 @@ export class TaskItemComponent implements OnInit {
   isJustClicked(): boolean {
     return this.taskService.isJustClicked(this.task.id); 
   }
+  
 }

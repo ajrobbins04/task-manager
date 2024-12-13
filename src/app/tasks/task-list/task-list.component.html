@@ -19,8 +19,8 @@
             <div class="panel-heading">New Task</div>
             <div class="panel-body">
               <app-task-edit
-                (save)="addTask($event)"
-                (cancel)="toggleNewTaskForm()"
+                (taskEditSaved)="onSave()"
+                (taskEditCanceled)="onCancel()"
               ></app-task-edit>
             </div>
         </div>

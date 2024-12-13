@@ -104,7 +104,7 @@ export class TaskService {
     }
 
     updateTask(updatedTask: Task): void {
-        this.filterTasksByDate(this.chosenDateSubject.value);
+        
     }
 
     updateTaskStatus(taskId: string, newStatus: 'Completed' | 'Incomplete'): void {

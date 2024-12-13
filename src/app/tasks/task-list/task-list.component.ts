@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TaskService } from '../task.service';
 import { Task } from '../task.model';
 
@@ -15,6 +15,7 @@ export class TaskListComponent implements OnInit {
 
   // receives tasks filtered by the chosen date from its parent
   @Input() chosenDateTasks: Task[]; 
+
   showNewTaskForm: boolean = false;
 
   constructor(private taskService: TaskService) {}
@@ -31,4 +32,15 @@ export class TaskListComponent implements OnInit {
     this.showNewTaskForm = false; 
   }
 
+  // called when TaskEdit's save event is fired
+  // to save the task changes via the service
+  onSave(updatedTask: Task): void {
+    this.taskService.updateTask(updatedTask); 
+  }
+  
+  // called when TaskEdit's cancel event is fired
+  // to close the edit task form
+  onCancel(): void {
+    this.toggleNewTaskForm();
+  }
 }
