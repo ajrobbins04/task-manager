@@ -14,9 +14,7 @@ export class TaskItemComponent implements OnInit {
   @Input() task: Task;
   @Output() editTask = new EventEmitter<string>();
 
-  // toggle task item's details for visibility
-  showOptions: boolean = false;
-  justClicked: boolean = false;
+  isEditing: boolean; // track whether the task is being edited
 
   constructor(private taskService: TaskService,
               private router: Router,
@@ -24,10 +22,28 @@ export class TaskItemComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  startEditing(): void {
+    this.isEditing = true; 
+    this.editTask.emit(this.task.id);
+  }
+
+  stopEditing(): void {
+    this.isEditing = false; 
+  }
+
+  saveChanges(updatedTask: Task): void {
+    this.taskService.updateTask(updatedTask) // save changes via the service
+    this.stopEditing(); // exit edit mode after saving
+  }
+
+  // delete directly using the service
+  deleteTask(): void {
+    this.taskService.deleteTask(this.task);
+  }
+
   // so a completed task can be checked, and unchecked later if necessary
-  toggleTaskStatus() {
+  toggleTaskStatus(): void {
     this.task.status = this.task.status === 'Completed' ? 'Incomplete' : 'Completed';
-  
     this.taskService.markAsJustClicked(this.task.id);
     this.taskService.updateTaskStatus(this.task.id, this.task.status);
   }
@@ -36,15 +52,5 @@ export class TaskItemComponent implements OnInit {
   // turn to red when the cursor hovers over it afterwards
   isJustClicked(): boolean {
     return this.taskService.isJustClicked(this.task.id); 
-  }
-
-  // notify parent that edit action was triggered
-  onEdit() {
-    this.editTask.emit(this.task.id);
-  }
-
-  // delete directly using the service
-  onDelete() {
-    this.taskService.deleteTask(this.task);
   }
 }

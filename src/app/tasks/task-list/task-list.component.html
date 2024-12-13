@@ -2,16 +2,25 @@
         <div class="panel-body">
             <div class="row">
                <div class="col-xs-12">
+                <!--Display each task for a chosen date-->
                 <task-manager-task-item
                 *ngFor="let task of chosenDateTasks"
                 [task]="task"
-                (editTask)="onEditTask($event)"
                 ></task-manager-task-item>
                </div>
             </div>
          </div>
          <div class="row text-center">
-            <div class="col-xs-12">
-                <a class="btn btn-success pull-right" routerLink="new">New Task</a>
+            <div class="col-xs-12" *ngIf="!showNewTaskForm">
+                <a class="btn btn-success pull-right" routerLink="task-list/new" (click)="toggleNewTaskForm()">New Task</a>
+            </div>
+        </div>
+        <div class="panel panel-default" *ngIf="showNewTaskForm">
+            <div class="panel-heading">New Task</div>
+            <div class="panel-body">
+              <app-task-edit
+                (save)="addTask($event)"
+                (cancel)="toggleNewTaskForm()"
+              ></app-task-edit>
             </div>
         </div>

@@ -1,7 +1,7 @@
 <li class="list-group-item" [ngClass]="{'task-complete': task.status === 'Completed'}">
     <div>
-        <a class="btn btn-danger pull-right" (click)="onDelete()">Delete</a>
-        <a class="btn btn-primary pull-right" routerLink="edit">Edit</a>
+        <a class="btn btn-danger pull-right" (click)="deleteTask()">Delete</a>
+        <a class="btn btn-primary pull-right" (click)="startEditing()">Edit</a>
         
         <!--Displays when full time range provided-->
         <p *ngIf="task.startTime && task.endTime; else noEndTime">
@@ -26,4 +26,10 @@
     <h3>{{ task.title }}</h3>
     <p *ngIf="task.details">{{ task.details }}</p>
 </li>
-
+<!-- display TaskEditComponent only when in edit mode -->
+<div *ngIf="isEditing">
+    <task-manager-task-edit
+        (save)="addTask($event)"
+        (cancel)="stopEditing()">
+    </task-manager-task-edit>
+</div>

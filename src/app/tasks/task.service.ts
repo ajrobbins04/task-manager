@@ -103,6 +103,10 @@ export class TaskService {
     
     }
 
+    updateTask(updatedTask: Task): void {
+        this.filterTasksByDate(this.chosenDateSubject.value);
+    }
+
     updateTaskStatus(taskId: string, newStatus: 'Completed' | 'Incomplete'): void {
         // Update the task's status and emit the updated tasks
         this.tasks = this.tasks.map(task =>

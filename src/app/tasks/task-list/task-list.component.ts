@@ -12,17 +12,23 @@ import { Task } from '../task.model';
 })
 
 export class TaskListComponent implements OnInit {
-  @Input() chosenDateTasks: Task[];
 
+  // receives tasks filtered by the chosen date from its parent
+  @Input() chosenDateTasks: Task[]; 
+  showNewTaskForm: boolean = false;
 
   constructor(private taskService: TaskService) {}
-  
-  onEditTask(taskId: string): void {
-    console.log('Edit task triggered:', taskId);
 
+  ngOnInit(): void {}
+
+  toggleNewTaskForm(): void {
+    this.showNewTaskForm = !this.showNewTaskForm; 
   }
 
-  ngOnInit(): void {
-
+  // will hide new form after calling service to add the task
+  addTask(task: Task): void {
+    this.taskService.addTask(task);
+    this.showNewTaskForm = false; 
   }
+
 }
