@@ -6,7 +6,7 @@
             </div>
             <div class="panel-body">
                 <task-manager-task-list
-                    [chosenDateTasks]="filteredTasks$ | async"
+                    [chosenDateTasks]="chosenDateTasks$ | async"
                     (addTask)="onAddTask()"
                     (editTask)="onEditTask($event)"
                 ></task-manager-task-list>

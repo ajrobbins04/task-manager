@@ -9,6 +9,7 @@ import { TaskService } from '../task.service';
   templateUrl: './task-edit.component.html',
   styleUrl: './task-edit.component.css'
 })
+
 export class TaskEditComponent implements OnInit {
 
   taskId: string; // id for the task to edit
@@ -27,8 +28,7 @@ export class TaskEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const testId = this.route.snapshot.queryParams['id'];
-    console.log(testId);
+  
     this.route.params.subscribe(
       (params: Params) => {
 
@@ -38,9 +38,6 @@ export class TaskEditComponent implements OnInit {
         if (!this.editMode) {
           return;
         }
-        const id = params.get('id');
-        console.log(id);
-
         const idSegment = this.route.snapshot.url.find(segment => !isNaN(Number(segment.path)));
         const taskId = idSegment ? Number(idSegment.path) : null;
         console.log(taskId);
@@ -66,27 +63,30 @@ export class TaskEditComponent implements OnInit {
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
-      if (this.editMode) {
-        this.editMode = false;
-        //this.taskService.updateTask()
-        this.closeEditForm.emit();
-      }
-      //this.taskService.addTask()
-      this.closeNewTaskForm.emit();
-    }
+      const value = form.value;
 
+      const newTask = new Task(
+        value.id, 
+        value.title,
+        value.details,
+        value.selectedDate,
+        value.startTime,
+        value.endTime,
+        value.deadlineDate,
+        value.status
+      );
+  
+      if (this.editMode) {
+        this.taskService.updateTask(newTask); // Update the existing task
+      } else {
+        this.taskService.addTask(newTask); // Add a new task
+      }
+      this.onCancel();
+    }
   }
 
+  // Cancel the task editing or creation
   onCancel(): void {
-
-    if (this.editMode) {
-      this.editMode = false;
-      this.closeEditForm.emit(); // notify TaskItem that edit is cancelled
-    }
-    else {
-      this.closeNewTaskForm.emit(); // notify TaskList that new task is cancelled
-    }
-    
-    this.router.navigate(['/tasks']); // return to tasks list
+    this.router.navigate(['/tasks']);
   }
 }

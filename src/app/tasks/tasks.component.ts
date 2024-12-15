@@ -17,7 +17,7 @@ export class TasksComponent implements OnInit {
   isNewTaskMode: boolean = false;
 
   chosenDate$: Observable<Date>;
-  filteredTasks$: Observable<Task[]>;
+  chosenDateTasks$: Observable<Task[]>;
 
   constructor(
     private taskService: TaskService,
@@ -26,7 +26,8 @@ export class TasksComponent implements OnInit {
 
   ngOnInit(): void {
     this.chosenDate$ = this.taskService.chosenDate$;
-    this.filteredTasks$ = this.taskService.chosenDateTasks$;
+    this.chosenDateTasks$ = this.taskService.filteredTasks$;
+    console.log(this.isNewTaskMode);
   }
 
   onAddTask(): void {
@@ -43,21 +44,5 @@ export class TasksComponent implements OnInit {
     this.taskToEdit = task; // pass the task being edited to the form
     this.router.navigate([task.id, 'edit'], { relativeTo: this.route });
   }
-
-  onSaveTask(task: Task): void {
-    if (this.isNewTaskMode) {
-      this.taskService.addTask(task); // Add a new task
-    } else {
-      this.taskService.updateTask(task); // Update the existing task
-    }
-    this.onCancelTask();
-  }
-
-  // Cancel the task editing or creation
-  onCancelTask(): void {
-    this.showEditForm = false;
-    this.router.navigate(['/tasks']);
-  }
-
 
 }
