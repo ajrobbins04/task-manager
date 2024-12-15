@@ -17,7 +17,7 @@ export class TaskService {
     private filteredTasksSubject = new BehaviorSubject<Task[]>([]);
     
     chosenDate$ = this.chosenDateSubject.asObservable();
-    filteredTasks$ = this.filteredTasksSubject.asObservable();
+    chosenDateTasks$ = this.filteredTasksSubject.asObservable();
 
     constructor() {
         this.tasks = MOCKTASKS;

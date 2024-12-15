@@ -1,21 +1,51 @@
 <div class="panel panel-default">
-    <div class="panel-heading">Edit Task</div>
+    <div class="panel-heading">
+        <h3>  {{ editMode ? 'Edit Task' : 'New Task' }}</h3>
+    </div>
     <div class="panel-body">
 <form id="task-edit" (ngSubmit)="onSubmit(f)" #f="ngForm">
     <div class="row">
         <div class="col-sm-12 form-group">
             <label for="title">Task:</label>
-            <!--ngModel applied here & url for two-way data binding-->
             <input
-              type="text"
-              id="title"
-              name="title"
-              class="form-control"
-              required
-              size="120"
-              max="120">
+                type="text"
+                id="title"
+                name="title"
+                class="form-control required"
+                [ngModel]="task.title"  
+                #title="ngModel"
+                required
+                size="120"
+                max="120"
+            />
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="details">Details:</label>
+          <textarea
+                id="details"
+                name="details"
+                class="form-control"
+                [ngModel]="task.details"
+                #details="ngModel"
+          ></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <label for="selectedDate">Date:</label>
+          <input
+                type="date"
+                id="selectedDate"
+                name="selectedDate"
+                class="form-control required"
+                [ngModel]="task.selectedDate" 
+                #selectedDate="ngModel"
+                required
+            />
+        </div>
+      </div>
     <div class="row">
     <div class="col-xs-12 btn-toolbar">
         <button class="btn btn-success" type="submit" [disabled]="!f.valid">Save</button>

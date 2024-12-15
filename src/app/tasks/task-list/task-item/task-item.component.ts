@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Task } from '../../task.model';
 import { TaskService } from '../../task.service';
 
@@ -14,31 +14,28 @@ export class TaskItemComponent implements OnInit {
   @Input() task: Task;
   @Output() editTask = new EventEmitter<string>();
 
-  isEditing: boolean; // track whether the task is being edited
+  isEditing: boolean; // will determine edit form visibility
 
   constructor(private taskService: TaskService,
               private router: Router,
+              private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {}
 
-  startEditing(): void {
-    this.isEditing = true; 
+  onEdit(): void {
+    console.log('edit button fires from task item')
     this.editTask.emit(this.task.id);
   }
 
-  stopEditing(): void {
+  // close edit form and re-route to tasks
+  /*stopEditingTask(): void {
     this.isEditing = false; 
-  }
-
-  saveChanges(updatedTask: Task): void {
-    
-    //this.taskService.updateTask(updatedTask) // save changes via the service
-    this.stopEditing(); // exit edit mode after saving
-  }
+    this.router.navigate(['/tasks']);
+  }*/
 
   // delete directly using the service
-  deleteTask(): void {
+  onDelete(): void {
     this.taskService.deleteTask(this.task);
   }
 

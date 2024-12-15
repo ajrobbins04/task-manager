@@ -7,7 +7,16 @@
             <div class="panel-body">
                 <task-manager-task-list
                     [chosenDateTasks]="filteredTasks$ | async"
+                    (addTask)="onAddTask()"
+                    (editTask)="onEditTask($event)"
                 ></task-manager-task-list>
+                <!--Replace task list with form when modifying or adding a task-->
+            <div *ngIf="showEditForm">
+                <task-manager-task-edit
+                    [task]="taskToEdit"
+                    (taskEditCanceled)="onCancelEdit()"
+                ></task-manager-task-edit>
+            </div>
             </div>
         </div>
     </div>

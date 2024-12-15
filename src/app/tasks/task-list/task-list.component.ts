@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, NavigationEnd } from '@angular/router';
 import { TaskService } from '../task.service';
 import { Task } from '../task.model';
 
@@ -13,34 +14,25 @@ import { Task } from '../task.model';
 
 export class TaskListComponent implements OnInit {
 
-  // receives tasks filtered by the chosen date from its parent
+  // tasks filtered by the chosen date to be displayed
   @Input() chosenDateTasks: Task[]; 
-
-  showNewTaskForm: boolean = false;
-
-  constructor(private taskService: TaskService) {}
-
-  ngOnInit(): void {}
-
-  toggleNewTaskForm(): void {
-    this.showNewTaskForm = !this.showNewTaskForm; 
-  }
-
-  // will hide new form after calling service to add the task
-  addTask(task: Task): void {
-    this.taskService.addTask(task);
-    this.showNewTaskForm = false; 
-  }
-
-  // called when TaskEdit's save event is fired
-  // to save the task changes via the service
-  onSave(updatedTask: Task): void {
-    this.taskService.updateTask(updatedTask); 
-  }
+  @Output() editTask = new EventEmitter<string>();
+  @Output() addTask = new EventEmitter<void>();
   
-  // called when TaskEdit's cancel event is fired
-  // to close the edit task form
-  onCancel(): void {
-    this.toggleNewTaskForm();
-  }
+  constructor(
+    private taskService: TaskService,
+    private route: ActivatedRoute ) {}
+
+    ngOnInit(): void {}
+
+    onEditTask(taskId: string): void {
+
+      this.editTask.emit(taskId);
+      
+    }
+
+    onAdd(): void {
+      this.addTask.emit();
+    }
+
 }
