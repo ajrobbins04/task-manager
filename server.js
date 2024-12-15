@@ -38,19 +38,16 @@ app.use((req, res, next) => {
 
 // Tell express to use the specified director as the
 // root directory for your web site
-app.use(express.static(path.join(__dirname, 'dist/task-manager')));
+app.use(express.static(path.join(__dirname, 'dist/task-manager/browser')));
 
 // Tell express to map the default route ('/') to the index route
 app.use('/', index);
-
-// Maps all non-defined routes back to index
-app.use((req, res, next) => {
-    res.render('index', {title: 'task-manager'});
+app.use(function(req, res, next) {
+  res.render('index'); 
 });
 
-// Tell express to map all other non-defined routes back to the index page
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/task-manager/index.html'));
+  res.sendFile(path.join(__dirname, 'dist/task-manager/browser/main'));
 });
 
 // Define the port address and tell express to use this port
