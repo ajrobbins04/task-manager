@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-4 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <task-manager-task-nav></task-manager-task-nav>
+            </div>
+            <div class="panel-body">
+                <task-manager-task-list
+                    [chosenDateTasks]="chosenDateTasks$ | async"
+                    (addTask)="onAddTask()"
+                    (editTask)="onEditTask($event)"
+                ></task-manager-task-list>
+                <!--Replace task list with form when modifying or adding a task-->
+            <div *ngIf="showEditForm">
+                <task-manager-task-edit
+                    [task]="taskToEdit"
+                    (taskEditCanceled)="onCancelEdit()"
+                ></task-manager-task-edit>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

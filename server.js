@@ -5,12 +5,27 @@ var http = require('http');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
 
 // import the routing file to handle the default (index) route
 var index = require('./server/routes/app');
 const taskRoutes = require('./server/routes/tasks');
 
 var app = express(); // create an instance of express
+
+// connect to mongodb
+const mongoURI = 'mongodb+srv://ajrobbins04:ufafckd4@task-manager.keaiu.mongodb.net/'
+
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => {
+  console.log('Connected to MongoDB successfully!');
+})
+.catch((err) => {
+  console.error('Error connecting to MongoDB:', err.message);
+});
 
 // Tell express to use the following parsers for POST data
 app.use(bodyParser.json());

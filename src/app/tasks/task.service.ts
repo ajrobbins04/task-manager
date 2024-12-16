@@ -8,49 +8,31 @@ import { BehaviorSubject } from 'rxjs';
 })
 
 export class TaskService {
-    private tasks: Task[] = [];
-    private maxTaskId: number;
+    private tasksByDate: { [date: string]: Task[] } = {}; // a dict with string dates as keys
 
-    // tracks tasks whose status icons (complete/incomplete) have been clicked recently
-    private justClickedTasks: Map<string, boolean> = new Map();
-    private chosenDateSubject = new BehaviorSubject<Date>(new Date('2024-12-07')); 
+    private chosenDateSubject = new BehaviorSubject<string>('2024-12-07'); 
     private filteredTasksSubject = new BehaviorSubject<Task[]>([]);
     
     chosenDate$ = this.chosenDateSubject.asObservable();
     filteredTasks$ = this.filteredTasksSubject.asObservable();
 
+    private justClickedTasks: Map<string, boolean> = new Map(); // used for ui purposes 
+
     constructor() {
-        this.tasks = MOCKTASKS;
-        this.maxTaskId = this.getMaxId();
-        this.filterTasksByDate(this.chosenDateSubject.value);
+        this.tasksByDate = MOCKTASKS;
+        this.getTasksByDate(this.chosenDateSubject.value);
     }
 
-    getMaxId(): number {
-        let maxId = 0;
-        for (let task of this.tasks) {
-            const currentId = parseInt(task.id);
-            if (currentId > maxId) {
-                maxId = currentId;
-            }
-        }
 
-        return maxId;
-    }
-
-    setChosenDate(newDate: Date) {
+    setChosenDate(newDate: string) {
         this.chosenDateSubject.next(newDate);
-        this.filterTasksByDate(newDate);
+        this.getTasksByDate(newDate);
     }
 
-    // filter tasks based on the selected date
-    filterTasksByDate(date: Date) {
-        const filteredTasks = this.tasks.filter(
-          task => task.selectedDate?.toDateString() === date.toDateString()
-        );
-        console.log(filteredTasks);
-        // emit filtered tasks to subscribers
-        this.filteredTasksSubject.next(filteredTasks);
-    }
+    private getTasksByDate(date: string): void {
+        const tasks = this.tasksByDate[date] || []; 
+        this.filteredTasksSubject.next(tasks);
+      }
 
     // will delay a newly completed task from turning red on hover 
     // immediately after it's been clicked (and vice-versa)
@@ -67,12 +49,8 @@ export class TaskService {
         return this.justClickedTasks.get(taskId) || false;
     }
 
-    getAllTasks() {
-        return this.tasks.slice();
-    }
-
     getTask(id: string) {
-        for (let task of this.tasks) {
+        for (let task of this.tasksByDate) {
             if (task.id === id) {
                 return task;
             }
@@ -113,7 +91,7 @@ export class TaskService {
           task.id === taskId ? { ...task, status: newStatus } : task
         );
 
-        this.filterTasksByDate(this.chosenDateSubject.value);
+        this.getTasksByDate(this.chosenDateSubject.value);
       }
       
 }

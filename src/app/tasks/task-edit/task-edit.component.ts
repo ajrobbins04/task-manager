@@ -69,10 +69,8 @@ export class TaskEditComponent implements OnInit {
         value.id, 
         value.title,
         value.details,
-        value.selectedDate,
         value.startTime,
         value.endTime,
-        value.deadlineDate,
         value.status
       );
   
