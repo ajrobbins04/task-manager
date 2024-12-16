@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header.component';
-import { TasksComponent } from './tasks/tasks.component';
+import { DailyTasksComponent } from './tasks/daily-tasks.component';
 import { TaskNavComponent } from './tasks/task-nav/task-nav.component';
 import { TaskListComponent } from './tasks/task-list/task-list.component';
 import { TaskEditComponent } from './tasks/task-edit/task-edit.component';
@@ -17,7 +17,7 @@ import { TimeFormatPipe } from './shared/pipes/time-format.pipe';
   declarations: [
     AppComponent,
     HeaderComponent,
-    TasksComponent,
+    DailyTasksComponent,
     TaskNavComponent,
     TaskEditComponent,
     TaskListComponent,
