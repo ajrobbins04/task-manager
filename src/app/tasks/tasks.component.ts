@@ -37,12 +37,11 @@ export class TasksComponent implements OnInit {
     this.router.navigate(['new'], { relativeTo: this.route });
   }
 
-  onEditTask(taskId: string): void {
-    const task = this.taskService.getTaskById(taskId);
+  onEditTask(task: Task): void {
     this.showEditForm = true;
     this.isNewTaskMode = false;
-    this.taskToEdit = task; // pass the task being edited to the form
-    this.router.navigate([task.id, 'edit'], { relativeTo: this.route });
+    this.taskToEdit = task; 
+    this.router.navigate([this.taskToEdit.id, 'edit'], { relativeTo: this.route });
   }
 
   onSaveTask(event: { task: Task; date: string }): void {

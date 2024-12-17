@@ -67,11 +67,8 @@ export class TaskService implements OnInit {
     isJustClicked(taskId: string): boolean {
         return this.justClickedTasks.get(taskId) || false;
     }
+    addTask(task: Task): void {
 
-
-    addTask(task: Task) {
-        this.tasks.push(task);
-        this.filterTasksByDate(this.chosenDateSubject.value);
     }
 
     deleteTask(task: Task) {
@@ -79,16 +76,6 @@ export class TaskService implements OnInit {
             console.log('no task...')
             return;
         }
-        const pos = this.tasks.indexOf(task);
-        if (pos < 0) {
-            console.log('no index...')
-            return;
-        }
-        console.log(task);
-        this.tasks.splice(pos, 1);
-        this.tasks = this.tasks.slice();
-      
-        this.filterTasksByDate(this.chosenDateSubject.value);
     
     }
 
@@ -98,11 +85,7 @@ export class TaskService implements OnInit {
 
     updateTaskStatus(taskId: string, newStatus: 'Completed' | 'Incomplete'): void {
         // Update the task's status and emit the updated tasks
-        this.tasks = this.tasks.map(task =>
-          task.id === taskId ? { ...task, status: newStatus } : task
-        );
 
-        this.getTasksByDate(this.chosenDateSubject.value);
       }
       
 }
