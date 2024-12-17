@@ -23,7 +23,9 @@ export class TaskListComponent implements OnInit {
     private taskService: TaskService,
     private route: ActivatedRoute ) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+      this
+    }
 
     onEditTask(taskId: string): void {
 

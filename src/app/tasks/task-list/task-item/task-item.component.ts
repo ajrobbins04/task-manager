@@ -24,7 +24,6 @@ export class TaskItemComponent implements OnInit {
   ngOnInit(): void {}
 
   onEdit(): void {
-    console.log('edit button fires from task item')
     this.editTask.emit(this.task.id);
   }
 

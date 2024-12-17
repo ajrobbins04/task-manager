@@ -12,7 +12,7 @@
                 id="title"
                 name="title"
                 class="form-control required"
-                [ngModel]="task.title"  
+                [(ngModel)]="task.title"  
                 #title="ngModel"
                 required
                 size="120"
@@ -27,23 +27,50 @@
                 id="details"
                 name="details"
                 class="form-control"
-                [ngModel]="task.details"
+                [(ngModel)]="task.details"
                 #details="ngModel"
           ></textarea>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-6 form-group">
-          <label for="selectedDate">Date:</label>
+          <label for="chosenDate">Date:</label>
           <input
-                type="date"
-                id="selectedDate"
-                name="selectedDate"
-                class="form-control required"
-                [ngModel]="task.selectedDate" 
-                #selectedDate="ngModel"
-                required
+            type="date"
+            id="chosenDate"
+            name="chosenDate"
+            class="form-control required"
+            [(ngModel)]="chosenDate" 
+            (ngModelChange)="onDateChange($event)"
+            #chosenDate="ngModel"
+            required
             />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="startTime">Start Time:</label>
+          <input
+            type="time"
+            id="startTime"
+            name="startTime"
+            class="form-control"
+            [(ngModel)]="task.startTime"
+            #startTime="ngModel"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="endTime">End Time:</label>
+          <input
+            type="time"
+            id="endTime"
+            name="endTime"
+            class="form-control"
+            [(ngModel)]="task.endTime"
+            #endTime="ngModel"
+          />
         </div>
       </div>
     <div class="row">

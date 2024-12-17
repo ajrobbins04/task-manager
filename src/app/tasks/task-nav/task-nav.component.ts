@@ -14,18 +14,18 @@ export class TaskNavComponent {
 
   ngOnInit() {
     this.taskService.chosenDate$.subscribe((date) => {
-      this.chosenDate = date; 
+      //this.chosenDate = date; 
     });
   }
 
   goToPreviousDay() {
     const newDate = new Date(this.chosenDate.getTime() - 24 * 60 * 60 * 1000); // Subtract 1 day
-    this.taskService.setChosenDate(newDate);
+    //this.taskService.setChosenDate(newDate);
 
   }
 
   goToNextDay() {
     const newDate = new Date(this.chosenDate.getTime() + 24 * 60 * 60 * 1000); // Add 1 day
-    this.taskService.setChosenDate(newDate);
+    //this.taskService.setChosenDate(newDate);
   }
 }

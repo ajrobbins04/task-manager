@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Task } from '../task.model';
 import { TaskService } from '../task.service';
 
@@ -12,19 +13,20 @@ import { TaskService } from '../task.service';
 
 export class TaskEditComponent implements OnInit {
 
-  taskId: string; // id for the task to edit
-  originalTask: Task; // the original, unedited task
-  task: Task; // the edited version
   editMode: boolean;
+  originalTask: Task;
+  task: Task;
 
-  @Output() closeEditForm = new EventEmitter<void>(); 
-  @Output() closeNewTaskForm = new EventEmitter<void>(); 
+  @Input() chosenDate: string; // is separate from Task
 
+  @Output() taskEditCanceled = new EventEmitter<void>(); 
+
+  // returns obj with 2 properties: task, and chosenDate
+  @Output() taskEditSaved = new EventEmitter<{task: Task; chosenDate: string}>();
 
   constructor(
     private taskService: TaskService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -38,21 +40,29 @@ export class TaskEditComponent implements OnInit {
         if (!this.editMode) {
           return;
         }
-        const idSegment = this.route.snapshot.url.find(segment => !isNaN(Number(segment.path)));
-        const taskId = idSegment ? Number(idSegment.path) : null;
-        console.log(taskId);
 
-        // try to fetch existing Task using its ID
-        this.originalTask = this.taskService.getTask(this.taskId);
+        const taskId = this.route.snapshot.paramMap.get('id'); 
+        
+        if (taskId) {
+          // subscribe to unwrap Task obj from Observable
+          this.taskService.getTaskById(taskId).subscribe({
+            next: (taskData) => {
+              this.task = taskData;
+            },
+            error: (err) => {
+              console.error('Error fetching task:', err);
+            }
+          });
+          
+        }
 
         // return if no Task is found
-        if (!this.originalTask) {
+        if (!this.task) {
           return;
         }
 
         // clone original task object
-        this.task = JSON.parse(JSON.stringify(this.originalTask));
-
+        this.originalTask = JSON.parse(JSON.stringify(this.task));
       }
     )
   }
@@ -63,28 +73,21 @@ export class TaskEditComponent implements OnInit {
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
-      const value = form.value;
-
-      const newTask = new Task(
-        value.id, 
-        value.title,
-        value.details,
-        value.startTime,
-        value.endTime,
-        value.status
-      );
-  
-      if (this.editMode) {
-        this.taskService.updateTask(newTask); // Update the existing task
-      } else {
-        this.taskService.addTask(newTask); // Add a new task
-      }
-      this.onCancel();
+      // emit object containing the u
+      this.taskEditSaved.emit({
+        task: { ...this.task },
+        chosenDate: this.chosenDate
+      });
     }
+  }
+
+  // called when a task is moved to a different date
+  onDateChange(newDate: string): void {
+    this.chosenDate = newDate;
   }
 
   // Cancel the task editing or creation
   onCancel(): void {
-    this.router.navigate(['/tasks']);
+    this.taskEditCanceled.emit();
   }
 }

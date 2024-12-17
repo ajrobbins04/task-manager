@@ -8,3 +8,7 @@ export class Task {
      public status: 'Incomplete' | 'Completed'
     ) {}
 }
+export interface DailyTask {
+    date: string; 
+    tasks: Task[]; 
+}
