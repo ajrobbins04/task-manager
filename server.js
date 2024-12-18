@@ -14,7 +14,7 @@ const taskRoutes = require('./server/routes/task');
 var app = express(); // create an instance of express
 
 // connect to mongodb
-const mongoURI = 'mongodb+srv://ajrobbins04:ufafckd4@task-manager.keaiu.mongodb.net/'
+const mongoURI = 'mongodb+srv://ajrobbins04:ufafckd4@task-manager.keaiu.mongodb.net/task-manager';
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
@@ -59,7 +59,7 @@ app.use('/', index);
 app.use('/tasks', taskRoutes);
 
 app.use(function(req, res, next) {
-  res.render('index'); 
+  res.sendFile(path.join(__dirname, 'dist/task-manager/browser/main')); 
 });
 
 app.get('*', (req, res) => {

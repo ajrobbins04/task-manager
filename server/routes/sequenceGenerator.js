@@ -3,15 +3,18 @@ const Sequence = require('../models/sequence');
 function SequenceGenerator() {
 
       this.sequenceId = null;
-      this.maxTaskId;
+      this.maxTaskId = 0;
 }  
 
 SequenceGenerator.prototype.initializeGenerator = async function () {
     try {
       const sequence = await Sequence.findOne().exec();
+      console.log("Retrieved sequence document:", sequence);
       if (sequence) {
         this.sequenceId = sequence._id;
         this.maxTaskId = sequence.maxTaskId;
+        
+        console.log(this.maxTaskId);
       } else {
         console.error('No sequence document found');
       }

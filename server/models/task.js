@@ -33,7 +33,7 @@ const TaskSchema = new mongoose.Schema({
 const DailyTaskSchema = new mongoose.Schema({
     date: { type: String, required: true }, // the chosen date
     tasks: [TaskSchema] // the array of tasks to be completed on that day
-  });
+  },  { collection: 'tasks' });
   
   // define the models
   const Task = mongoose.model('Task', TaskSchema);
