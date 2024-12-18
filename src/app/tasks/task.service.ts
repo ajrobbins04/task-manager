@@ -10,9 +10,8 @@ import { Task, DailyTask } from './task.model';
 
 export class TaskService {
     private apiUrl = 'http://localhost:3000/tasks';
-    private tasksForDate: { [date: string]: Task[] } = {}; // a dict with string dates as keys
 
-    private chosenDateSubject = new BehaviorSubject<string>(''); 
+    private chosenDateSubject = new BehaviorSubject<string>(''); // initial date set by tasks component
     private filteredTasksSubject = new BehaviorSubject<Task[]>([]);
     
     chosenDate$ = this.chosenDateSubject.asObservable();
@@ -22,22 +21,24 @@ export class TaskService {
 
     constructor(private http: HttpClient) {}
 
+    // set new date value and notify subscribers
     setChosenDate(newDate: string) {
         this.chosenDateSubject.next(newDate);
         this.getTasksForDate(newDate);
     }
 
+    // retrieve tasks for chosen date 
     getTasksForDate(date: string): void {
+
         // make GET request
-        this.http.get<DailyTask>(`${this.apiUrl}/${date}`)
-            // extract just the tasks array from dailyTask
-            // using map to tranform the received value
-            .pipe(
-                map((dailyTask: DailyTask) => dailyTask.tasks)
-            ).subscribe ({
-                next: (tasks) => this.updateChosenDateTasks(tasks),
-                error: (err) => console.error('Error fetching tasks: ', err)  
-            })
+        this.http.get<Task[]>(`${this.apiUrl}/${date}`)
+            .subscribe({
+                next: (tasks) => {
+                    console.log('Tasks retrieved from API:', tasks);
+                    this.updateChosenDateTasks(tasks); // Update subscribers with the tasks
+                },
+                error: (err) => console.error('Error fetching tasks:', err)
+            });
     }
 
     getTaskById(taskId: string): Observable<Task> {
@@ -47,8 +48,10 @@ export class TaskService {
 
     // emit array of updated tasks for a given date
     updateChosenDateTasks(tasks: Task[]): void {
+        console.log('Updating filtered tasks:', tasks);
         this.filteredTasksSubject.next(tasks);
     }
+
     // will delay a newly completed task from turning red on hover 
     // immediately after it's been clicked (and vice-versa)
     markAsJustClicked(taskId: string): void {

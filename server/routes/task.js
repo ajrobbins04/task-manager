@@ -8,10 +8,15 @@ const { Task, DailyTask } = require('../models/task');
 router.get('/:date', async (req, res) => {
     try {
       const { date } = req.params;
-      const tasks = await Task.find({ date: date });
+      const dailyTask = await DailyTask.findOne({ date: date });
+
+      if (!dailyTask) {
+        return res.status(200).json([]); // return empty array if no tasks found for valid date
+      }
 
       // tasks successfully found
-      res.status(200).json(tasks);
+      res.status(200).json(dailyTask.tasks);
+      console.log("dailyTask second result: ", dailyTask);
     } catch (error) {
       // tasks not found
       res.status(500).json({ message: 'Failed to fetch tasks for the date', error: error });

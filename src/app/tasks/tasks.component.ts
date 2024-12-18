@@ -17,7 +17,6 @@ export class TasksComponent implements OnInit {
   isNewTaskMode: boolean = false;
 
   chosenDate$: Observable<string>;
-  chosenDateTasks$: Observable<Task[]>;
 
   constructor(
     private taskService: TaskService,
@@ -26,9 +25,9 @@ export class TasksComponent implements OnInit {
 
 
   ngOnInit(): void {
+    // normally current day would be the chosen date
+    // at first, but it isn't for demo purposes
     this.taskService.setChosenDate('2024-12-07');
-    this.chosenDate$ = this.taskService.chosenDate$;
-    this.chosenDateTasks$ = this.taskService.filteredTasks$;
   }
 
   onAddTask(): void {
