@@ -59,7 +59,7 @@ app.use('/tasks', taskRoutes);
 
 // Catch-all route to serve Angular's index.html for client-side routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/task-manager/browser/main'));
+  res.sendFile(path.join(__dirname, 'dist/task-manager/browser/index.html'));
 });
 
 // Define the port address and tell express to use this port

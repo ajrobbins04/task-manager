@@ -30,7 +30,6 @@ import { TimeFormatPipe } from './shared/pipes/time-format.pipe';
     BrowserModule,
     FormsModule,
     HttpClientModule
-
   ],
   providers: [TaskService],
   bootstrap: [AppComponent]
