@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header.component';
@@ -11,6 +11,7 @@ import { TaskListComponent } from './tasks/task-list/task-list.component';
 import { TaskEditComponent } from './tasks/task-edit/task-edit.component';
 import { TaskItemComponent } from './tasks/task-list/task-item/task-item.component';
 import { TaskService } from './tasks/task.service';
+import { AppRoutingModule } from './app-routing.module';
 import { TimeFormatPipe } from './shared/pipes/time-format.pipe';
 
 @NgModule({
@@ -27,7 +28,9 @@ import { TimeFormatPipe } from './shared/pipes/time-format.pipe';
   imports: [
     AppRoutingModule,
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
+
   ],
   providers: [TaskService],
   bootstrap: [AppComponent]

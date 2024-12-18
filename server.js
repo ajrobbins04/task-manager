@@ -8,7 +8,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 
 // import the routing file to handle the default (index) route
-var index = require('./server/routes/app');
+const index = require('./server/routes/app');
 const taskRoutes = require('./server/routes/task');
 
 var app = express(); // create an instance of express
@@ -54,14 +54,10 @@ app.use((req, res, next) => {
 // root directory for your web site
 app.use(express.static(path.join(__dirname, 'dist/task-manager/browser')));
 
-// Tell express to map the default route ('/') to the index route
 app.use('/', index);
 app.use('/tasks', taskRoutes);
 
-app.use(function(req, res, next) {
-  res.sendFile(path.join(__dirname, 'dist/task-manager/browser/main')); 
-});
-
+// Catch-all route to serve Angular's index.html for client-side routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/task-manager/browser/main'));
 });
