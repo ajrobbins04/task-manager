@@ -26,6 +26,7 @@ export class TasksComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.taskService.setChosenDate('2024-12-07');
     this.chosenDate$ = this.taskService.chosenDate$;
     this.chosenDateTasks$ = this.taskService.filteredTasks$;
   }

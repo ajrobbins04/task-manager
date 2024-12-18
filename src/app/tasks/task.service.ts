@@ -1,5 +1,5 @@
-import { EventEmitter, OnInit, Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, map, Observable, Subject} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Task, DailyTask } from './task.model';
 
@@ -8,11 +8,11 @@ import { Task, DailyTask } from './task.model';
     providedIn: 'root'  // makes service globally available
 })
 
-export class TaskService implements OnInit {
+export class TaskService {
     private apiUrl = 'http://localhost:3000/tasks';
     private tasksForDate: { [date: string]: Task[] } = {}; // a dict with string dates as keys
 
-    private chosenDateSubject = new BehaviorSubject<string>('2024-12-07'); 
+    private chosenDateSubject = new BehaviorSubject<string>(''); 
     private filteredTasksSubject = new BehaviorSubject<Task[]>([]);
     
     chosenDate$ = this.chosenDateSubject.asObservable();
@@ -21,10 +21,6 @@ export class TaskService implements OnInit {
     private justClickedTasks: Map<string, boolean> = new Map(); // used for ui purposes 
 
     constructor(private http: HttpClient) {}
-
-    ngOnInit(): void {
-        this.getTasksForDate(this.chosenDateSubject.value);
-    }
 
     setChosenDate(newDate: string) {
         this.chosenDateSubject.next(newDate);
