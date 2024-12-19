@@ -41,9 +41,10 @@ export class TaskService {
             });
     }
 
-    getTaskById(taskId: string): Observable<Task> {
-        const url = `${this.apiUrl}/${taskId}`; // Construct the endpoint URL
-        return this.http.get<Task>(url); // Send the GET request
+    // no http request necessary - task should already be in 
+    // filteredTasks if it's currently displayed in the ui
+    getTaskById(taskId: string): Task {
+        return this.filteredTasksSubject.value.find(task => task.id === taskId);  
     }
 
     // emit array of updated tasks for a given date

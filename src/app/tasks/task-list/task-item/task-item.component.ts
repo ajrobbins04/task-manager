@@ -12,7 +12,7 @@ import { TaskService } from '../../task.service';
 export class TaskItemComponent implements OnInit {
 
   @Input() task: Task;
-  @Output() editTask = new EventEmitter<Task>();
+  @Output() editTask = new EventEmitter<string>();
 
   isEditing: boolean; // will determine edit form visibility
 
@@ -24,7 +24,7 @@ export class TaskItemComponent implements OnInit {
   ngOnInit(): void {}
 
   onEdit(): void {
-    this.editTask.emit(this.task);
+    this.editTask.emit(this.task.id);
   }
 
   // close edit form and re-route to tasks

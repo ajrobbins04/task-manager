@@ -12,7 +12,6 @@ import { TaskService } from './task.service';
 })
 export class TasksComponent implements OnInit {
 
-  taskToEdit: Task | null = null; // holds either a task being edited or null
   showEditForm: boolean = false;
   isNewTaskMode: boolean = false;
 
@@ -32,16 +31,16 @@ export class TasksComponent implements OnInit {
 
   onAddTask(): void {
     this.showEditForm = true;
+    console.log('Show edit form set to true'); 
     this.isNewTaskMode = true;
-    this.taskToEdit = null;
     this.router.navigate(['new'], { relativeTo: this.route });
   }
 
-  onEditTask(task: Task): void {
+  onEditTask(taskId: string): void {
     this.showEditForm = true;
+    console.log('Show edit form set to true'); 
     this.isNewTaskMode = false;
-    this.taskToEdit = task; 
-    this.router.navigate([this.taskToEdit.id, 'edit'], { relativeTo: this.route });
+    this.router.navigate([taskId, 'edit'], { relativeTo: this.route });
   }
 
   onSaveTask(event: { task: Task; date: string }): void {
@@ -56,6 +55,7 @@ export class TasksComponent implements OnInit {
     this.onCancelTask();
   }
   onCancelTask(): void {
+    console.log('Task edit canceled event received');
     this.showEditForm = false; // hide the edit form
     this.router.navigate(['/tasks']); // return to the task list
   }

@@ -15,7 +15,7 @@ export class TaskListComponent {
 
   // tasks filtered by the chosen date to be displayed
   chosenDateTasks: Task[] = [];
-  @Output() editTask = new EventEmitter<Task>();
+  @Output() editTask = new EventEmitter<string>();
   @Output() addTask = new EventEmitter<void>();
 
   constructor(private taskService: TaskService) {}
@@ -30,8 +30,8 @@ export class TaskListComponent {
     });
 }
 
-    onEditTask(task: Task): void {
-      this.editTask.emit(task); 
+    onEditTask(taskId: string): void {
+      this.editTask.emit(taskId); 
     }
 
     onAdd(): void {

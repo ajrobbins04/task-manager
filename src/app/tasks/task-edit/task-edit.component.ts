@@ -35,34 +35,25 @@ export class TaskEditComponent implements OnInit {
       (params: Params) => {
 
         this.editMode = !(this.route.snapshot.url.some(segment => segment.path === 'new'));
-
+        console.log('Edit mode status: ', this.editMode);
         // return when adding a new task
         if (!this.editMode) {
           return;
         }
 
         const taskId = this.route.snapshot.paramMap.get('id'); 
-        
+        console.log('taskId status: ', taskId);
         if (taskId) {
-          // subscribe to unwrap Task obj from Observable
-          this.taskService.getTaskById(taskId).subscribe({
-            next: (taskData) => {
-              this.task = taskData;
-            },
-            error: (err) => {
-              console.error('Error fetching task:', err);
-            }
-          });
-          
+          this.task = this.taskService.getTaskById(taskId);
         }
-
         // return if no Task is found
-        if (!this.task) {
+        else {
           return;
         }
 
         // clone original task object
         this.originalTask = JSON.parse(JSON.stringify(this.task));
+        console.log('Task received in TaskEditComponent:', this.originalTask);
       }
     )
   }
@@ -88,6 +79,7 @@ export class TaskEditComponent implements OnInit {
 
   // Cancel the task editing or creation
   onCancel(): void {
+    console.log('Cancel button clicked');
     this.taskEditCanceled.emit();
   }
 }
