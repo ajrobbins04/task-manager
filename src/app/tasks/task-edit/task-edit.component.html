@@ -40,9 +40,8 @@
             id="chosenDate"
             name="chosenDate"
             class="form-control required"
-            [(ngModel)]="chosenDate" 
-            (ngModelChange)="onDateChange($event)"
-            #chosenDate="ngModel"
+            [value]="formattedDate"
+            (input)="onDateChange($event)"
             required
             />
         </div>

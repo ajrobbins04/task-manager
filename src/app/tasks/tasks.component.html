@@ -13,7 +13,6 @@
             <div *ngIf="showEditForm">
                 <task-manager-task-edit
                     [task]="taskToEdit"
-                    [chosenDate]="chosenDate$ | async"
                     (taskEditSaved)="onSaveTask($event)"
                     (taskEditCanceled)="onCancelTask()"
                 ></task-manager-task-edit>

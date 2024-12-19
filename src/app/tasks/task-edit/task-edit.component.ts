@@ -14,15 +14,12 @@ import { TaskService } from '../task.service';
 export class TaskEditComponent implements OnInit {
 
   editMode: boolean;
-  originalTask: Task;
   task: Task;
-
-  @Input() chosenDate: string; // is separate from Task
+  formattedDate: string;
+  chosenDate: string; // is separate from Task
 
   @Output() taskEditCanceled = new EventEmitter<void>(); 
-
-  // returns obj with 2 properties: task, and chosenDate
-  @Output() taskEditSaved = new EventEmitter<{task: Task; chosenDate: string}>();
+  @Output() taskEditSaved = new EventEmitter<{task: Task; chosenDate: string}>(); // obj returned w/two properties
 
   constructor(
     private taskService: TaskService,
@@ -43,8 +40,9 @@ export class TaskEditComponent implements OnInit {
 
         const taskId = this.route.snapshot.paramMap.get('id'); 
         console.log('taskId status: ', taskId);
+        let task = null;
         if (taskId) {
-          this.task = this.taskService.getTaskById(taskId);
+          task = this.taskService.getTaskById(taskId);
         }
         // return if no Task is found
         else {
@@ -52,12 +50,25 @@ export class TaskEditComponent implements OnInit {
         }
 
         // clone original task object
-        this.originalTask = JSON.parse(JSON.stringify(this.task));
-        console.log('Task received in TaskEditComponent:', this.originalTask);
+        this.task = JSON.parse(JSON.stringify(task));
+        console.log('Task received in TaskEditComponent:', this.task);
       }
+      
     )
+    // subscribe to chosenDate$
+    this.taskService.chosenDate$.subscribe((dateString) => {
+      console.log('Chosen date string:', dateString);
+  
+      this.chosenDate = dateString;
+  
+      if (this.task && this.chosenDate) {
+        const dateObj = new Date(this.chosenDate);
+        this.formattedDate = dateObj.toISOString().split('T')[0];
+        console.log('Formatted date:', this.formattedDate);
+      }
+    });
   }
-
+  
   inEditMode(): boolean {
     return this.editMode;
   }
