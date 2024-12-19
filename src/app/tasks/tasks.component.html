@@ -13,8 +13,8 @@
             <div *ngIf="showEditForm">
                 <task-manager-task-edit
                     [task]="taskToEdit"
-                    (taskEditSaved)="onSaveTask($event)"
-                    (taskEditCanceled)="onCancelTask()"
+                    (taskEditSaved)="onSaveTask($event); console.log('taskEditSaved event received', $event)"
+                    (taskEditCanceled)="onCancelTask(); console.log('taskEditCanceled received')"
                 ></task-manager-task-edit>
             </div>
             </div>

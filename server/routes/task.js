@@ -67,4 +67,35 @@ router.post('/', async (req, res) => {
     }
 });
 
+// PUT - update an existing task
+router.put('/:id', async (req, res, next) => {
+
+  const taskId = req.params.id;
+  const updatedData = req.body;
+  console.log('Task ID to be edited: ', taskId);
+
+  try {
+    // looks for a DailyTask document that has a task with the given taskId
+    const dailyTask = await DailyTask.findOne({'tasks.id': taskId});
+    console.log(dailyTask);
+    if (!dailyTask) {
+      return res.status(404).json({ message: 'Task not found'});
+    }
+
+    const task = dailyTask.tasks.find(t => t.id === taskId);
+    console.log(task);
+    if (!task) {
+      return res.status(404).json({ message: 'Task not found in daily task'});
+    }
+     
+    Object.assign(task, updatedData); // update task fields with the data from req.body
+
+    await dailyTask.save(); // save the updated daily task
+    res.status(200).json({ message: 'Task updated successfully', task });
+  }
+  catch (error) {
+    res.status(500).json({ message: "Failed to update the task", error });
+  }
+});
+
 module.exports = router; 

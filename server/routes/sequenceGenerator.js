@@ -12,6 +12,7 @@ SequenceGenerator.prototype.initializeGenerator = async function () {
       if (sequence) {
         this.sequenceId = sequence._id;
         this.maxTaskId = sequence.maxTaskId;
+        console.log("maxTaskId: ", this.maxTaskId);
         
       } else {
         console.error('No sequence document found');

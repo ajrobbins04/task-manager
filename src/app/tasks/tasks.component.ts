@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { Task } from './task.model';
 import { TaskService } from './task.service';
 
-
 @Component({
   selector: 'task-manager-tasks',
   templateUrl: './tasks.component.html',
@@ -44,14 +43,18 @@ export class TasksComponent implements OnInit {
   }
 
   onSaveTask(event: { task: Task; date: string }): void {
-    const { task, date } = event;
+    console.log('onSaveTask executed');
+    console.log(this.isNewTaskMode);
+    const { task, date } = event; // unpack the passed object 
 
     if (this.isNewTaskMode) {
       this.taskService.addTask(task);
     } else {
       this.taskService.updateTask(task);  // Add a new task
     }
-    
+
+    const chosenDate = this.taskService.getChosenDate();
+    this.taskService.getTasksForDate(chosenDate);
     this.onCancelTask();
   }
   onCancelTask(): void {

@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Task } from '../task.model';
@@ -30,16 +29,19 @@ export class TaskEditComponent implements OnInit {
   
     this.route.params.subscribe(
       (params: Params) => {
-
+        // determine if a task is being edited or added
         this.editMode = !(this.route.snapshot.url.some(segment => segment.path === 'new'));
-        console.log('Edit mode status: ', this.editMode);
+
         // return when adding a new task
         if (!this.editMode) {
           return;
         }
 
+        // retrieve task id from url 
         const taskId = this.route.snapshot.paramMap.get('id'); 
         console.log('taskId status: ', taskId);
+
+        // retrieve task using taskId
         let task = null;
         if (taskId) {
           task = this.taskService.getTaskById(taskId);
@@ -74,13 +76,19 @@ export class TaskEditComponent implements OnInit {
   }
 
   onSubmit(form: NgForm): void {
+    console.log('submitted!')
+    console.log('Form validity:', form.valid);
+    console.log('Form value:', form.value);
+    console.log(this.chosenDate);
+   
     if (form.valid) {
-      // emit object containing the u
+      console.log('Emitting taskEditSaved with task:', this.task, 'and chosenDate:', this.chosenDate);
       this.taskEditSaved.emit({
-        task: { ...this.task },
-        chosenDate: this.chosenDate
+        task: this.task,  
+        chosenDate: this.chosenDate // date passed separately from task
       });
     }
+    
   }
 
   // called when a task is moved to a different date

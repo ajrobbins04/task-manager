@@ -27,6 +27,10 @@ export class TaskService {
         this.getTasksForDate(newDate);
     }
 
+    getChosenDate(): string {
+        return this.chosenDateSubject.value;
+    }
+
     // retrieve tasks for chosen date 
     getTasksForDate(date: string): void {
 
@@ -80,7 +84,23 @@ export class TaskService {
     }
 
     updateTask(updatedTask: Task): void {
-        
+        this.http.put<Task>(`${this.apiUrl}/${updatedTask.id}`, updatedTask)
+        .subscribe({
+            next: (response) => {
+            console.log('Task updated successfully:', response);
+
+            // Update the local task list
+            const currentTasks = this.filteredTasksSubject.value;
+            const updatedTasks = currentTasks.map(task =>
+            task.id === updatedTask.id ? response : task
+            );
+
+            this.filteredTasksSubject.next(updatedTasks);
+        },
+      error: (err) => {
+        console.error('Error updating task:', err);
+      }
+    });
     }
 
     updateTaskStatus(taskId: string, newStatus: 'Completed' | 'Incomplete'): void {

@@ -8,7 +8,6 @@ const appRoutes: Routes = [
   { path: 'tasks', component: TasksComponent },
   { path: 'tasks/new', component: TaskEditComponent }, 
   { path: 'tasks/:id/edit', component: TaskEditComponent },
-  { path: '**', redirectTo: '/tasks' }
 ]
 
 @NgModule({
