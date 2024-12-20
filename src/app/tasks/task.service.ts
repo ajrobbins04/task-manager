@@ -71,6 +71,7 @@ export class TaskService {
     isJustClicked(taskId: string): boolean {
         return this.justClickedTasks.get(taskId) || false;
     }
+    
     addTask(task: Task): void {
 
     }
@@ -104,8 +105,26 @@ export class TaskService {
     }
 
     updateTaskStatus(taskId: string, newStatus: 'Completed' | 'Incomplete'): void {
-        // Update the task's status and emit the updated tasks
+        
+        const url = `${this.apiUrl}/update-status/${taskId}`; 
+        const chosenDate = this.chosenDateSubject.value;
 
-      }
-      
+        const body = {
+            status: newStatus, 
+            date: chosenDate // sent to locate correct dailyTask easily
+        };
+
+        this.http.put(url, body).subscribe({
+            next: (response) => {
+                console.log('Task status updated successfully:', response);
+                this.getTasksForDate(chosenDate); // must refresh values for the current day
+            },
+            error: (err) => {
+                console.error('Failed to update task status:', err);
+            },
+        });
+    }
+
+
 }
+      

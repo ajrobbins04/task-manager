@@ -31,16 +31,17 @@ router.post('/', async (req, res) => {
       if (!req.body.chosenDate) {
         return res.status(400).json({ message: 'A date is required to add a task.' });
       }
+
+        // generate the new task object using body of req object
+        const newTask = ({
+          id: sequenceGenerator.nextId('tasks'),
+          title: req.body.title,
+          details: req.body?.details || null,
+          startTime: req.body?.startTime || null,
+          endTime: req.body?.endTime || null,
+          status: 'Incomplete',
+        });
   
-      // generate the new task object using body of req object
-      const newTask = ({
-        id: sequenceGenerator.nextId('tasks'),
-        title: req.body.title,
-        details: req.body?.details || null,
-        startTime: req.body?.startTime || null,
-        endTime: req.body?.endTime || null,
-        status: 'Incomplete',
-      });
   
       // try to retrieve a dailyTask using the chosenDate
       let dailyTask = await DailyTask.findOne({ date: chosenDate });
@@ -70,8 +71,8 @@ router.post('/', async (req, res) => {
 // PUT - update an existing task
 router.put('/:id', async (req, res, next) => {
 
-  const taskId = req.params.id;
-  const updatedData = req.body;
+  const { taskId } = req.params.id;
+  const updatedTaskData = req.body;
   console.log('Task ID to be edited: ', taskId);
 
   try {
@@ -95,6 +96,49 @@ router.put('/:id', async (req, res, next) => {
   }
   catch (error) {
     res.status(500).json({ message: "Failed to update the task", error });
+  }
+});
+
+
+// only updates a task's status field
+router.put('/update-status/:id', async (req, res, next) => {
+  try {
+    const taskId = req.params.id; 
+    const newStatus = req.body.status; 
+    const date = req.body.date;
+
+    console.log('PUT Request TaskID: ', taskId);
+    console.log('PUT Request New Status: ', newStatus);
+    console.log('PUT Request date: ', date);
+
+    if (!newStatus) {
+      return res.status(400).json({ message: 'Task status is empty'})
+    }
+
+    const dailyTask = await DailyTask.findOne({ date: date });
+
+    if (!dailyTask) {
+      return res.status(404).json({ message: 'Task not found'});
+    }
+
+    // extract task from dailyTask's array of tasks
+    const task = dailyTask.tasks.find(task => task.id === taskId);
+
+    if (!task) {
+      return res.status(404).json({ message: 'Task not found in tasks array associated with a date'});
+    }
+
+    // update task's status
+    task.status = newStatus;
+    await dailyTask.save();
+
+    res.status(200).json({
+      message: 'Task status updated successfully',
+      updatedTask: task,
+    });
+  }
+  catch (err) {
+    res.status(500).json({ message: 'Failed to update task status', error: err });
   }
 });
 
