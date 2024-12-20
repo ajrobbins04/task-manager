@@ -72,7 +72,7 @@ export class TaskService {
         return this.justClickedTasks.get(taskId) || false;
     }
     
-    addTask(task: Task): void {
+    addTask(task: Task, date: string): void {
 
     }
 
@@ -84,19 +84,23 @@ export class TaskService {
     
     }
 
-    updateTask(updatedTask: Task): void {
-        this.http.put<Task>(`${this.apiUrl}/${updatedTask.id}`, updatedTask)
+    updateTask(updatedTask: Task, chosenDate: string, taskDate: string): void {
+
+        // taskDate set to the value of chosenDate when taskEdit is initialized 
+        // a value mismatch indicates that user wants task moved to new date
+        const isDateChanged = chosenDate !== taskDate;
+
+        const requestBody: any = {
+            task: updatedTask,
+            ...(isDateChanged
+              ? { prevDate: chosenDate, newDate: taskDate } // include previous and new dates if isDateChanged is true
+              : { date: chosenDate }) // include current chosen date if isDateChanged is false
+        };
+
+        this.http.put(`${this.apiUrl}/${updatedTask.id}`, requestBody)
         .subscribe({
             next: (response) => {
             console.log('Task updated successfully:', response);
-
-            // Update the local task list
-            const currentTasks = this.filteredTasksSubject.value;
-            const updatedTasks = currentTasks.map(task =>
-            task.id === updatedTask.id ? response : task
-            );
-
-            this.filteredTasksSubject.next(updatedTasks);
         },
       error: (err) => {
         console.error('Error updating task:', err);

@@ -15,10 +15,10 @@ export class TaskEditComponent implements OnInit {
   editMode: boolean;
   task: Task;
   formattedDate: string;
-  chosenDate: string; // is separate from Task
+  taskDate: string; // the current date that a task is planned for
 
   @Output() taskEditCanceled = new EventEmitter<void>(); 
-  @Output() taskEditSaved = new EventEmitter<{task: Task; chosenDate: string}>(); // obj returned w/two properties
+  @Output() taskEditSaved = new EventEmitter<{task: Task; date: string}>(); // obj returned w/two properties
 
   constructor(
     private taskService: TaskService,
@@ -61,10 +61,12 @@ export class TaskEditComponent implements OnInit {
     this.taskService.chosenDate$.subscribe((dateString) => {
       console.log('Chosen date string:', dateString);
   
-      this.chosenDate = dateString;
+      // taskDate always starts off initially assigned
+      // to the date shown onscreen in task-nav
+      this.taskDate = dateString;
   
-      if (this.task && this.chosenDate) {
-        const dateObj = new Date(this.chosenDate);
+      if (this.task && this.taskDate) {
+        const dateObj = new Date(this.taskDate);
         this.formattedDate = dateObj.toISOString().split('T')[0];
         console.log('Formatted date:', this.formattedDate);
       }
@@ -79,13 +81,14 @@ export class TaskEditComponent implements OnInit {
     console.log('submitted!')
     console.log('Form validity:', form.valid);
     console.log('Form value:', form.value);
-    console.log(this.chosenDate);
+    console.log('Task date: ', this.taskDate);
    
     if (form.valid) {
-      console.log('Emitting taskEditSaved with task:', this.task, 'and chosenDate:', this.chosenDate);
+      console.log('Emitting taskEditSaved with task:', this.task, 'and taskDate:', this.taskDate);
+      
       this.taskEditSaved.emit({
         task: this.task,  
-        chosenDate: this.chosenDate // date passed separately from task
+        date: this.taskDate // date and task passed separately w/in an obj
       });
     }
     
@@ -93,7 +96,7 @@ export class TaskEditComponent implements OnInit {
 
   // called when a task is moved to a different date
   onDateChange(newDate: string): void {
-    this.chosenDate = newDate;
+    this.taskDate = newDate;
   }
 
   // Cancel the task editing or creation

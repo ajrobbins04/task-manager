@@ -47,13 +47,14 @@ export class TasksComponent implements OnInit {
     console.log(this.isNewTaskMode);
     const { task, date } = event; // unpack the passed object 
 
+    const chosenDate = this.taskService.getChosenDate();
+
     if (this.isNewTaskMode) {
-      this.taskService.addTask(task);
+      this.taskService.addTask(task, date);
     } else {
-      this.taskService.updateTask(task);  // Add a new task
+      this.taskService.updateTask(task, chosenDate, date);  // Add a new task
     }
 
-    const chosenDate = this.taskService.getChosenDate();
     this.taskService.getTasksForDate(chosenDate);
     this.onCancelTask();
   }
