@@ -1,0 +1,204 @@
+[
+    {
+      "date": "2025-07-02",
+      "tasks": [
+        {
+          "id": "1",
+          "title": "Complete Statistics Project",
+          "details": "This project covers the entire statistical process.",
+          "startTime": "08:00",
+          "endTime": "11:00",
+          "status": "Incomplete"
+        },
+        {
+          "id": "2",
+          "title": "Prepare Presentation Slides",
+          "details": "There should be a minimum of 8 slides",
+          "startTime": null,
+          "endTime": null,
+          "status": "Incomplete"
+        }
+      ]
+    },
+    {
+      "date": "2025-07-03",
+      "tasks": [
+        {
+          "id": "3",
+          "title": "Do Laundry",
+          "details": "Remember to empty out the pockets first!",
+          "startTime": null,
+          "endTime": null,
+          "status": "Incomplete"
+        },
+        {
+            "id": "4",
+            "title": "Grocery Pickup",
+            "details": "Double check no substitutions were made before heading home.",
+            "startTime": "12:30",
+            "endTime": null,
+            "status": "Incomplete"
+          }
+      ]
+    },
+    {
+      "date": "2025-07-04",
+      "tasks": [
+        {
+          "id": "5",
+          "title": "Independence Day Parade on Water Street",
+          "details": "Bring sunscreen and water bottles.",
+          "startTime": "08:00",
+          "endTime": "9:30",
+          "status": "Incomplete"
+        },
+        {
+          "id": "6",
+          "title": "Prepare BBQ Lunch",
+          "details": "Ask if anyone wants to bring a side dish.",
+          "startTime": "13:00",
+          "endTime": null,
+          "status": "Incomplete"
+        }
+      ]
+    },
+    {
+      "date": "2025-07-06",
+      "tasks": [
+        {
+          "id": "7",
+          "title": "Doctor's Appointment",
+          "details": "Go to the location on Pecos Street.",
+          "startTime": "15:00",
+          "endTime": null,
+          "status": "Incomplete"
+        }
+      ]
+    },
+    {
+      "date": "2025-07-07",
+      "tasks": [
+        {
+          "id": "8",
+          "title": "Relax and Recover from Holiday Weekend",
+          "details": null,
+          "startTime": null,
+          "endTime": null,
+          "status": "Incomplete"
+        },
+        {
+            "id": "9",
+            "title": "Meal Prep for the Week",
+            "details": null,
+            "startTime": null,
+            "endTime": null,
+            "status": null
+          }
+      ]
+    },
+    {
+      "date": "2025-07-09",
+      "tasks": [
+        {
+          "id": "10",
+          "title": "Work on Angular Project",
+          "details": "Ensure all CRUD operations work as expected.",
+          "startTime": "13:00",
+          "endTime": null,
+          "status": "Incomplete"
+        },
+        {
+          "id": "11",
+          "title": "Organize Workspace",
+          "details": "Tidy up desk and declutter papers.",
+          "startTime": "16:00",
+          "endTime": "17:00",
+          "status": "Incomplete"
+        }
+      ]
+    },
+    {
+      "date": "2025-07-10",
+      "tasks": [
+        {
+          "id": "12",
+          "title": "Schedule Team Check-In",
+          "details": "Coordinate with team members to set up a video call.",
+          "startTime": null,
+          "endTime": null,
+          "status": "Incomplete"
+        },
+        {
+          "id": "13",
+          "title": "Review Quarterly Budget",
+          "details": "Analyze spending trends and propose adjustments.",
+          "startTime": "9:00",
+          "endTime": "9:30",
+          "status": "Incomplete"
+        },
+        {
+          "id": "14",
+          "title": "Pay Utility Bills",
+          "details": null,
+          "startTime": "14:00",
+          "endTime": "14:30",
+          "status": "Incomplete"
+        }
+      ]
+    },
+    {
+      "date": "2025-07-12",
+      "tasks": [
+        {
+          "id": "15",
+          "title": "Draft Email Campaign",
+          "details": "Focus on engaging subject lines and strong CTAs.",
+          "startTime": "08:30",
+          "endTime": null,
+          "status": "Incomplete"
+        },
+        {
+          "id": "16",
+          "title": "Watch Lindsey's kids.",
+          "details": "Pick them up from school and help with homework.",
+          "startTime": "14:00",
+          "endTime": "18:00",
+          "status": "Incomplete"
+        }
+      ]
+    },
+    {
+      "date": "2025-07-13",
+      "tasks": [
+        {
+          "id": "17",
+          "title": "Submit Final Budget Report",
+          "details": null,
+          "startTime": "09:00",
+          "endTime": "09:15",
+          "status": "Incomplete"
+        },
+        {
+          "id": "18",
+          "title": "Finalize Angular Project",
+          "details": "Ensure all components are responsive and accessible.",
+          "startTime": "10:30",
+          "endTime": "12:45",
+          "status": "Incomplete"
+        }
+      ]
+    },
+    {
+      "date": "2025-07-14",
+      "tasks": [
+        {
+          "id": "19",
+          "title": "Call Mary",
+          "details": "Today is her birthday!",
+          "startTime": null,
+          "endTime": null,
+          "status": "Incomplete"
+        }
+      ]
+    }
+  ]
