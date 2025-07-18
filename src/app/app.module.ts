@@ -10,6 +10,7 @@ import { TaskEditComponent } from './tasks/task-edit/task-edit.component';
 import { TaskListComponent } from './tasks/task-list/task-list.component';
 import { TaskNavComponent } from './tasks/task-nav/task-nav.component';
 import { AppRoutingModule } from './app-routing.module';
+import { TaskItemComponent } from './tasks/task-list/task-item/task-item.component';
 
 @NgModule({
   declarations: [
@@ -18,10 +19,15 @@ import { AppRoutingModule } from './app-routing.module';
     HeaderComponent,
     TaskEditComponent,
     TaskListComponent,
-    TaskNavComponent
+    TaskNavComponent,
+    TaskItemComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
