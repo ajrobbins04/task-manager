@@ -33,6 +33,10 @@ export class TaskService {
     this.tasksSubject.next(tasks);
   }
 
+  getChosenDate(): string {
+    return this.chosenDateSubject.getValue();
+  }
+
   getCurrentDayId(): string | null {
     return this.currentDayId;
   }
@@ -53,4 +57,7 @@ export class TaskService {
       });
   }
   
+  updateTask(dayId: string, id: string, task: Task): void {}
+
+  addTask(task: Task, date: string): void {}
 }

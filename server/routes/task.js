@@ -96,10 +96,10 @@ router.post('/', async (req, res, next) => {
     }
   });
 
-router.put('/:dayId/:taskId', async (req, res, next) => {
+router.put('/:dayId/:id', async (req, res, next) => {
     try {
         const dayId = req.params.dayId;
-        const taskId = req.params.taskId;
+        const taskId = req.params.id;
 
         // Find the daily tasks for the specified day
         const dailyTasks = await DailyTasks.findOne({ dayId: dayId }).exec();
@@ -110,7 +110,9 @@ router.put('/:dayId/:taskId', async (req, res, next) => {
                 message: 'Daily tasks not found'
             });
         }
+        // Find the task to update
         const task = dailyTasks.tasks.id(taskId);
+
         if (!task) {
             return res.status(404).json({
                 message: 'Task not found'
@@ -118,6 +120,7 @@ router.put('/:dayId/:taskId', async (req, res, next) => {
         }   
 
         // Update the task properties
+        task.id = taskId; // Ensure the ID remains the same
         task.title = req.body.title?.trim() || task.title;
         task.details = req.body.details?.trim() || task.details;
         task.startTime = req.body.startTime?.trim() || task.startTime;
@@ -141,7 +144,7 @@ router.put('/:dayId/:taskId', async (req, res, next) => {
     }
 });
 
-router.delete('/:dayId/:taskId', async (req, res, next) => {
+router.delete('/:dayId/:id', async (req, res, next) => {
     try {
         const dayId = req.params.dayId;
         const taskId = req.params.taskId;

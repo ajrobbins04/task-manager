@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { TaskService } from '../task.service';
 import { Task } from '../task.model';
 @Component({
@@ -9,6 +9,9 @@ import { Task } from '../task.model';
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
 
+  @Output() addTask = new EventEmitter<void>();
+  @Output() editTask = new EventEmitter<Task>();
+
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
@@ -17,12 +20,12 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  onSelectTask(task: Task): void {
-
+  onEditTask(task: Task): void {
+    this.editTask.emit(task);
   }
 
   onAddTask(): void {
-
+    this.addTask.emit();
   }
 
 }

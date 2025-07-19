@@ -1,1 +1,89 @@
-<p>task-edit works!</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3>{{ editMode ? "Edit Task" : "New Task" }}</h3>
+  </div>
+  <div class="panel-body">
+    <form id="task-edit" (ngSubmit)="onSubmit(formRef)" #formRef="ngForm">
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="title">Task:</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            class="form-control required"
+            [(ngModel)]="task.title"
+            #titleRef="ngModel"
+            required
+            size="120"
+            maxlength="120"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="details">Details:</label>
+          <textarea
+            id="details"
+            name="details"
+            class="form-control"
+            [(ngModel)]="task.details"
+            #detailsRef="ngModel"
+          ></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <label for="date">Date:</label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            class="form-control required"
+            [(ngModel)]="date"
+            #dateRef="ngModel"
+            required
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="startTime">Start Time:</label>
+          <input
+            type="time"
+            id="startTime"
+            name="startTime"
+            class="form-control"
+            [(ngModel)]="task.startTime"
+            #startTimeRef="ngModel"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="endTime">End Time:</label>
+          <input
+            type="time"
+            id="endTime"
+            name="endTime"
+            class="form-control"
+            [(ngModel)]="task.endTime"
+            #endTimeRef="ngModel"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 btn-toolbar">
+          <button
+            class="btn btn-success"
+            type="submit"
+            [disabled]="!formRef.valid"
+          >
+            Save
+          </button>
+          <button class="btn btn-primary" type="button">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

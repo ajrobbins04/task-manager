@@ -1,13 +1,13 @@
 <div class="panel-body">
   <div class="row">
     <ul class="list-group" *ngFor="let task of tasks">
-      <manager-task-item [task]="task"></manager-task-item>
+      <manager-task-item [task]="task" (editTask)="onEditTask($event)"></manager-task-item>
     </ul>
   </div>
 </div>
 <!--The 'New Task' button found below tasks-->
 <div class="row text-center">
   <div class="col-xs-12">
-    <a class="btn btn-success pull-right">New Task</a>
+    <a class="btn btn-success pull-right" (click)="onAddTask()">New Task</a>
   </div>
 </div>

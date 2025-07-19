@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Task } from '../../task.model'
 
 @Component({
@@ -8,6 +8,8 @@ import { Task } from '../../task.model'
 })
 export class TaskItemComponent implements OnInit {
   @Input() task: Task;
+  @Output() editTask = new EventEmitter<Task>();
+
 
   constructor() { }
 
@@ -15,9 +17,7 @@ export class TaskItemComponent implements OnInit {
     // Initialization logic can go here
   }
 
-  onTaskClick(): void {
-    // Logic to handle task click can be added here
-    console.log('Task clicked:', this.task);
+  onEditTask() {
+    this.editTask.emit(this.task);
   }
-
 }

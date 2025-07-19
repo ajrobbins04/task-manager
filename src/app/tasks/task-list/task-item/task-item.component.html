@@ -1,7 +1,12 @@
 <li class="list-group-item">
   <div>
     <a class="btn btn-danger pull-right">Delete</a>
-    <a class="btn btn-primary pull-right" style="margin-right: 5px">Edit</a>
+    <a
+      class="btn btn-primary pull-right"
+      style="margin-right: 5px"
+      (click)="onEditTask()"
+      >Edit</a
+    >
 
     <!--Displays when full time range provided-->
     <p *ngIf="task.startTime && task.endTime; else noEndTime">
