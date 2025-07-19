@@ -14,5 +14,5 @@
   </div>
 
   <h3>{{ task.title }}</h3>
-  <p>Task Details Placed Here</p>
+  <p *ngIf="task.details">{{ task.details }}</p>
 </li>

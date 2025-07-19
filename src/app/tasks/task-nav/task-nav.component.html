@@ -1,10 +1,10 @@
 <div class="panel-heading">
-    <nav class="navbar navbar-default">
+    <nav class="navbar">
         <div class="row">
-            <div class="nav row-centered">
-                <button>&#8592; Previous Day</button>
-                <span>Chosen Date</span>
-                <button>Next Day &#8594;</button>
+            <div class="nav-display">
+                <button class="btn btn-info pull-left" (click)="goToPreviousDay()">&#8592; Previous Day</button>
+                <span class="flex-grow-1 text-center" style="font-weight: bold;">{{ chosenDate | date: 'fullDate':'UTC' }}</span>
+                <button class="btn btn-info pull-right" (click)="goToNextDay()">Next Day &#8594;</button>
             </div>
         </div>
     </nav>
