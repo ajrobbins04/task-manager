@@ -9,7 +9,6 @@ import { Task } from '../task.model';
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
 
-  @Output() addTask = new EventEmitter<void>();
   @Output() editTask = new EventEmitter<Task>();
 
   constructor(private taskService: TaskService) { }
@@ -22,10 +21,6 @@ export class TaskListComponent implements OnInit {
 
   onEditTask(task: Task): void {
     this.editTask.emit(task);
-  }
-
-  onAddTask(): void {
-    this.addTask.emit();
   }
 
 }

@@ -37,6 +37,7 @@ export class TasksComponent implements OnInit {
 
   onCancelEdit(): void {
     this.showEditForm = false;
+    this.taskToEdit = null; // Reset the task being edited
   }
 }
 

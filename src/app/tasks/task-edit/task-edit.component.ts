@@ -15,8 +15,8 @@ export class TaskEditComponent implements OnInit {
   dayId: string;
   @Input() task: Task | null = null; // the task being edited, or null if adding a new task
 
-  @Output() taskEditCanceled = new EventEmitter<void>();
-  @Output() taskEditSaved = new EventEmitter<{ task: Task; date: string }>(); // obj returned w/two properties
+  @Output() editCanceled = new EventEmitter<void>();
+  @Output() editSaved = new EventEmitter<{ task: Task; date: string }>(); // obj returned w/two properties
 
   constructor(
     private taskService: TaskService,
@@ -50,12 +50,12 @@ export class TaskEditComponent implements OnInit {
       this.taskService.addTask(taskPayload, this.date);
     }
   
-    this.taskEditSaved.emit({ task: taskPayload, date: this.date });
+    this.editSaved.emit({ task: taskPayload, date: this.date });
   }
-  
+
   // called when the user clicks the cancel button
   onCancel(): void {
-    this.taskEditCanceled.emit();
+    this.editCanceled.emit();
   }  
 
   // called when a task is moved to a different date

@@ -6,15 +6,22 @@
       </div>
       <div class="panel-body">
         <manager-task-list
-          (addTask)="onAddTask()"
           (editTask)="onEditTask($event)"
         ></manager-task-list>
-        <!--Replace task list with form when modifying or adding a task-->
+
+        <!-- New Task button shown only when edit form is not active -->
+        <div class="row text-center" *ngIf="!showEditForm">
+            <div class="col-xs-12">
+            <a class="btn btn-success pull-right" (click)="onAddTask()">New Task</a>
+            </div>
+        </div>
+
+        <!-- Task edit form shown only when editing or adding -->
         <div *ngIf="showEditForm">
           <manager-task-edit
             [task]="taskToEdit"
-            (taskEditSaved)="onSaveTask($event)"
-            (taskEditCanceled)="onCancelEdit()"
+            (editSaved)="onSaveTask($event)"
+            (editCanceled)="onCancelEdit()"
           ></manager-task-edit>
         </div>
       </div>
