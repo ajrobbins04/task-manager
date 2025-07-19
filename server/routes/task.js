@@ -5,18 +5,23 @@ const sequenceGenerator = require('./sequenceGenerator');
 const { Task, DailyTasks } = require('../models/task');
 
 // GET retrieves tasks for a specific date
-router.get('/byId/:dayId', async function(req, res, next) {
+router.get('/byDate/:date', async function(req, res, next) {
     try {
-        const dayId = req.params.dayId;
-        const dailyTasks = await DailyTasks.findOne({ dayId: dayId }).exec();
+        const date = req.params.date;
+        const dailyTasks = await DailyTasks.findOne({ date: date }).exec();
 
         if (!dailyTasks) {
             // If no tasks found for the date, return an empty array
-            return res.status(200).json([])
+            return res.status(200).json({
+                message: 'No Tasks found for the specified date',
+                dayId: null,
+                tasks: []
+            });
         }
         // If tasks found, return them
         res.status(200).json({
             message: 'Tasks fetched successfully',
+            dayId: dailyTasks.dayId,
             tasks: dailyTasks.tasks
         });
     } catch (err) {
@@ -158,7 +163,7 @@ router.delete('/:dayId/:taskId', async (req, res, next) => {
         // Save the updated daily tasks
         const updatedDailyTasks = await dailyTasks.save();
 
-        
+
         if (updatedDailyTasks.tasks.length === 0) {
             // If no tasks left, delete the daily tasks entry
             await DailyTasks.deleteOne({ dayId: dayId }).exec();

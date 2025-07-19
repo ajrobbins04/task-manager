@@ -1,9 +1,18 @@
 <li class="list-group-item">
-    <div>
-        <a class="btn btn-danger pull-right">Delete</a>
-        <a class="btn btn-primary pull-right">Edit</a>
-    </div>
+  <div>
+    <a class="btn btn-danger pull-right">Delete</a>
+    <a class="btn btn-primary pull-right" style="margin-right: 5px">Edit</a>
 
-    <h3>Task Title Placed Here</h3>
-    <p>Task Details Placed Here</p>
+    <!--Displays when full time range provided-->
+    <p *ngIf="task.startTime && task.endTime; else noEndTime">
+      {{ task.startTime | timeFormat }} - {{ task.endTime | timeFormat }}
+    </p>
+    <!--Displays when only start time provided-->
+    <ng-template #noEndTime>
+      <p>{{ task.startTime ? (task.startTime | timeFormat) : "Anytime" }}</p>
+    </ng-template>
+  </div>
+
+  <h3>{{ task.title }}</h3>
+  <p>Task Details Placed Here</p>
 </li>

@@ -11,6 +11,7 @@ import { TaskListComponent } from './tasks/task-list/task-list.component';
 import { TaskNavComponent } from './tasks/task-nav/task-nav.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TaskItemComponent } from './tasks/task-list/task-item/task-item.component';
+import { TimeFormatPipe } from './shared/pipes/time-format.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TaskItemComponent } from './tasks/task-list/task-item/task-item.compone
     TaskEditComponent,
     TaskListComponent,
     TaskNavComponent,
-    TaskItemComponent
+    TaskItemComponent,
+    TimeFormatPipe
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,7 @@ var dotenv = require('dotenv').config(); // Load environment variables from .env
 // import the routing file to handle the default (index) route
 var index = require('./server/routes/app');
 
-const taskRoutes = require('./server/routes/tasks');
+const taskRoutes = require('./server/routes/task');
 const sequenceGenerator = require('./server/routes/sequenceGenerator');
 
 var app = express(); // create an instance of express
