@@ -141,7 +141,7 @@ router.put('/:dayId/:id', async (req, res, next) => {
 router.delete('/:dayId/:id', async (req, res, next) => {
     try {
         const dayId = req.params.dayId;
-        const taskId = req.params.taskId;
+        const taskId = req.params.id;
         const dailyTasks = await DailyTasks.findOne({ dayId: dayId }).exec();
         if (!dailyTasks) {
             return res.status(404).json({

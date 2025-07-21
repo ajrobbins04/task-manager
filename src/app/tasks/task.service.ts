@@ -71,4 +71,16 @@ export class TaskService {
     });
   }
   
+  deleteTask(id: string): void {
+    this.http.delete(`${this.baseUrl}/${this.currentDayId}/${id}`).subscribe({
+      next: () => {
+        const currentDate = this.getChosenDate();
+        this.getTasksByDate(currentDate); // Refresh tasks after deletion
+        console.log(`Task with id ${id} deleted successfully.`);
+      },
+      error: (err) => {
+        console.error('Delete failed', err);
+      }
+    });
+  }
 }
