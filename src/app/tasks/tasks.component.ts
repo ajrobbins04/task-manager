@@ -37,12 +37,13 @@ export class TasksComponent implements OnInit {
 
   onSaveTask(event: { task: Task; date: string }): void {
     this.showEditForm = false;
-    // Optionally reload tasks or handle the new/updated task
+    this.router.navigate(['/tasks']);
   }
 
   onCancelEdit(): void {
     this.showEditForm = false;
     this.taskToEdit = null; // Reset the task being edited
+    this.router.navigate(['/tasks']);
   }
 }
 
