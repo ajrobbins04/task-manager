@@ -3,8 +3,9 @@ const Sequence = require('../models/sequence');
 class SequenceGenerator {
     constructor() {
         this.sequenceId = null; // will be set after fetching from the database
-        this.maxTaskId = 0; // default values
         this.maxDayId = 0;
+        this.maxTaskId = 0; // default values
+        
     }
     
     async initializeGenerator() {
@@ -13,9 +14,8 @@ class SequenceGenerator {
 
             if (seq) {
                 this.sequenceId = seq._id;
-                this.maxTaskId = seq.maxTaskId;
                 this.maxDayId = seq.maxDayId;
-
+                this.maxTaskId = seq.maxTaskId;
             } else {
                 console.error('No sequence document found');
             }

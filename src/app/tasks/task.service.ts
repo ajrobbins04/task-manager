@@ -59,5 +59,16 @@ export class TaskService {
   
   updateTask(dayId: string, id: string, task: Task): void {}
 
-  addTask(task: Task, date: string): void {}
+  addTask(task: Task, date: string): void {
+    const payload = { ...task, date };
+    this.http.post(`${this.baseUrl}`, payload).subscribe({
+      next: () => {
+        this.getTasksByDate(date); 
+      },
+      error: (err) => {
+        console.error('Add failed', err);
+      }
+    });
+  }
+  
 }

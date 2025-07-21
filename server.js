@@ -61,7 +61,7 @@ mongoose.connect(process.env.MONGODB_URL, {
   console.log('Connected to Database!');
 
   // Initialize the sequence generator
-  //await sequenceGenerator.initializeGenerator();
+  await sequenceGenerator.initializeGenerator();
 }).catch(err => {
   console.error('Connection failed:', err);
 });

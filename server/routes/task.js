@@ -43,35 +43,31 @@ router.post('/', async (req, res, next) => {
                 message: 'Date is required to add a task'
             });
         }
+
         const chosenDate = req.body.date; // Extract the provided date from the request body
 
-        // generate a new task ID for the new task
-        const nextTaskId = await sequenceGenerator.nextId('tasks');
-
-        // Ensure the task title is provided and not empty
-        if (!req.body.title?.trim()) {
-            return res.status(400).json({ 
-                message: 'Task title is required' });
-        }
-          
+        nextTaskId = await sequenceGenerator.nextId('tasks');
+        
         const newTask = {
-            id: nextTaskId,
+            id: nextTaskId.toString(),
             title: req.body.title?.trim(),
             details: req.body.details?.trim() || null,
             startTime: req.body.startTime?.trim() || null,
             endTime: req.body.endTime?.trim() || null,
             status: req.body.status?.trim() || 'Incomplete'
         };
-        
+        console.log('Adding new task:', newTask, 'for date:', chosenDate);
+
         // Try to find existing tasks for the chosen date
         let dailyTasks = await DailyTasks.findOne({ date: chosenDate }).exec();
 
+        console.log('DailyTasks for date:', chosenDate, dailyTasks);
         if (!dailyTasks) {
             const nextDayId = await sequenceGenerator.nextId('days');
 
             // If no tasks exist for the date, create a new DailyTasks object
             dailyTasks = new DailyTasks({
-                dayId: nextDayId,
+                dayId: nextDayId.toString(),
                 date: chosenDate,
                 tasks: [newTask]
             });
@@ -79,13 +75,11 @@ router.post('/', async (req, res, next) => {
             // If tasks already exist for the date, add the new task to the tasks array
             dailyTasks.tasks.push(newTask);
         }
-
         // Save the updated or new DailyTasks object
         const savedDailyTasks = await dailyTasks.save();
   
       res.status(201).json({
         message: 'Task added successfully',
-        task: newTask,
         dailyTasks: savedDailyTasks
       });
     } catch (error) {
