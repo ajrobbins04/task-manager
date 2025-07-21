@@ -70,9 +70,14 @@ export class TaskEditComponent implements OnInit {
       status: 'Incomplete',
     };
 
+    const payloadWithDate = {
+      ...taskPayload,
+      date: this.date 
+    };
+
     if (this.editMode) {
       console.log('Updating task:', taskPayload);
-      this.taskService.updateTask(this.dayId, taskPayload.id, taskPayload);
+      this.taskService.updateTask(this.dayId, taskPayload.id, payloadWithDate);
     } else {
       console.log('Adding new task:', taskPayload);
       this.taskService.addTask(taskPayload, this.date);
@@ -88,6 +93,7 @@ export class TaskEditComponent implements OnInit {
 
   // called when a task is moved to a different date
   onDateChange(newDate: string): void {
+    console.log('Date changed to:', newDate);
     this.date = newDate;
   }
 }

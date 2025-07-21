@@ -40,8 +40,8 @@
             id="date"
             name="date"
             class="form-control required"
-            [value]="date"
-            (input)="onDateChange($event)"
+            [ngModel]="date"
+            (ngModelChange)="onDateChange($event)"
             required
           />
         </div>
