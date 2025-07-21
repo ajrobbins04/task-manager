@@ -119,8 +119,10 @@ router.put("/:dayId/:id", async (req, res) => {
       });
     }
 
-    // Determine if it's an in-place update or a move to a new date
-    const moving = newDate && newDate !== origDailyTasks.date;
+     // format the new day date to YYYY-MM-DD so it can be compared
+    const formatDate = dateStr => new Date(dateStr).toISOString().split('T')[0];
+     // Determine if it's an in-place update or a move to a new date
+    const moving = newDate && formatDate(newDate) !== formatDate(origDailyTasks.date);
 
     if (!moving) {
       Object.assign(task, {
