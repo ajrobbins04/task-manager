@@ -57,7 +57,24 @@ export class TaskService {
       });
   }
   
-  updateTask(dayId: string, id: string, task: Task): void {}
+  updateTask(dayId: string, id: string, updatedTask: Task): void {
+    this.http.put<{ message: string; task: Task; dailyTasks: any }>(
+      `${this.baseUrl}/${dayId}/${id}`,
+      updatedTask
+    ).subscribe({
+      next: response => {
+        console.log('Task updated successfully:', response.task);
+  
+        // Optionally re-fetch tasks to ensure state is up to date
+        const currentDate = this.getChosenDate();
+        this.getTasksByDate(currentDate);
+      },
+      error: err => {
+        console.error('Failed to update task:', err);
+      }
+    });
+  }
+  
 
   addTask(task: Task, date: string): void {
     const payload = { ...task, date };

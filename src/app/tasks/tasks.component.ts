@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from './task.model'; 
 import { TaskService } from './task.service'; 
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'manager-tasks',
@@ -14,7 +15,9 @@ export class TasksComponent implements OnInit {
   showEditForm: boolean = false;
   taskToEdit: Task | null = null;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService,
+              private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.taskService.setChosenDate('2025-07-04')
@@ -23,11 +26,13 @@ export class TasksComponent implements OnInit {
   onAddTask(): void {
     this.taskToEdit = null;
     this.showEditForm = true;
+    this.router.navigate(['/tasks/new'], { queryParams: { mode: 'new' } });
   }
 
   onEditTask(task: Task): void {
     this.taskToEdit = task;
     this.showEditForm = true;
+    this.router.navigate(['/tasks/edit', task.id], { queryParams: { mode: 'edit' } });
   }
 
   onSaveTask(event: { task: Task; date: string }): void {

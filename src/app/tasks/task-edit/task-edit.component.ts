@@ -10,11 +10,12 @@ import { Task, DailyTasks } from '../task.model';
   styleUrl: './task-edit.component.css',
 })
 export class TaskEditComponent implements OnInit {
+  @Input() task: Task | null = null; // the task being edited, or null if adding a new task
+
   editMode: boolean;
   date: string;
   dayId: string;
-  @Input() task: Task | null = null; // the task being edited, or null if adding a new task
-
+  
   @Output() editCanceled = new EventEmitter<void>();
   @Output() editSaved = new EventEmitter<{ task: Task; date: string }>(); // obj returned w/two properties
 
@@ -24,13 +25,12 @@ export class TaskEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.editMode = !!this.task; // True if editing existing task
-    this.dayId = this.taskService.getCurrentDayId();
-    this.date = this.editMode && this.task?.startTime
-  ? this.task.startTime.split('T')[0]
-  : this.taskService.getChosenDate();
-
-    console.log('TaskEditComponent initialized with date:', this.date);
+    this.route.queryParams.subscribe(params => {
+      const mode = params['mode'];
+      this.editMode = mode === 'edit';
+  
+      this.dayId = this.taskService.getCurrentDayId();
+  
       if (!this.editMode) {
         this.task = {
           id: null,
@@ -40,9 +40,15 @@ export class TaskEditComponent implements OnInit {
           endTime: '',
           status: 'Incomplete',
         };
+        this.date = this.taskService.getChosenDate();
+      } else if (this.task) {
+        this.date = this.task.startTime.split('T')[0];
       }
+  
+      console.log('Edit mode?', this.editMode, 'Date initialized:', this.date);
+    });
   }
-
+  
   onSubmit(form: NgForm): void {
 
     if (form.invalid){
@@ -65,8 +71,10 @@ export class TaskEditComponent implements OnInit {
     };
 
     if (this.editMode) {
+      console.log('Updating task:', taskPayload);
       this.taskService.updateTask(this.dayId, taskPayload.id, taskPayload);
     } else {
+      console.log('Adding new task:', taskPayload);
       this.taskService.addTask(taskPayload, this.date);
     }
 
